@@ -1,7 +1,7 @@
 #define SFML_NO_DEPRECATED_WARNINGS
 #include "Menu.h";
 #include "GameMain.h"
-#include "Animation.h"
+#include "Player.h"
 
 
 
@@ -51,10 +51,8 @@ int main()
 	
 
 	////// Character
-	sf::RectangleShape player(sf::Vector2f(20´0.0f, 200.0f));
-	player.setTexture(&playerTexture);
 
-	Animation animation(&playerTexture, sf::Vector2u(4, 4), 0.3f);
+	Player Player(&playerTexture, sf::Vector2u(4, 4), 0.3f,100.0f);
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -99,7 +97,6 @@ int main()
 							std::cout << "PlayButton" << std::endl;
 							gameStateMachine = 2;
 							//shapeSpriteCharacter.setPosition({ 200.f, 200.f });
-							player.setPosition(206.0f, 206.0f);
 
 							bgMusic.stop();
 
@@ -131,26 +128,7 @@ int main()
 		}
 		if (gameStateMachine == 2)
 		{
-			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				shapeSpriteCharacter.move(.1f, 0.f);
-				shapeSpriteCharacter.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 2, spriteSizeX, 300));
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				shapeSpriteCharacter.move(-.1f, 0.f);
-				shapeSpriteCharacter.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 1, spriteSizeX, spriteSizeY));
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			{
-				shapeSpriteCharacter.move(0.f, -.1f);
-				shapeSpriteCharacter.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 3, spriteSizeX, spriteSizeY));
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			{
-				shapeSpriteCharacter.move(0.f, .1f);
-				shapeSpriteCharacter.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, 0, spriteSizeX, spriteSizeY));
-			}*/
+			
 		}
 		
 		
@@ -165,9 +143,8 @@ int main()
 		case 2:
 			window.clear();
 			window.draw(mapBgSprite);
-			window.draw(player);
-			animation.Update(0, deltaTime);
-			player.setTextureRect(animation.uvRect);
+			Player.Draw(window);
+			Player.Update(deltaTime);
 			//window.draw(shapeSpriteCharacter);
 			window.display();
 			break;
