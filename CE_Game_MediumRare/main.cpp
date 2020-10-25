@@ -2,6 +2,7 @@
 #include "Menu.h";
 #include "GameMain.h"
 #include "Player.h"
+#include "Platform.h";
 
 
 
@@ -52,7 +53,15 @@ int main()
 
 	////// Character
 
-	Player Player(&playerTexture, sf::Vector2u(4, 4), 0.3f,100.0f);
+	Player PlayerA(&playerTexture, sf::Vector2u(4, 4), 0.3f,200.0f);
+
+	////// Platform
+
+	Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
+	Platform platformRight(nullptr, sf::Vector2f(200.0f, 1500.0f), sf::Vector2f(1105.0f, 0.0f));
+	Platform platformTop(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, -550.0f));
+	Platform platformBottom(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, 1270.0f));
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -63,6 +72,10 @@ int main()
 
 	shapeSpriteCharacter.setTextureRect(sf::IntRect(0, 0, spriteSizeX, spriteSizeY));
 	shapeSpriteCharacter.setPosition({ -200.f, -200.f });*/
+	////// Object
+	sf::CircleShape collision(100.f);
+	collision.setPosition({ 700.f, 200.f });
+	collision.setFillColor(sf::Color::Red);
 
 	////// Menu
 	Menu menu(window.getSize().x, window.getSize().y);
@@ -128,7 +141,7 @@ int main()
 		}
 		if (gameStateMachine == 2)
 		{
-			
+			//Set Object type ID if 1 = Wall 2 = Interact
 		}
 		
 		
@@ -141,11 +154,22 @@ int main()
 			window.display();
 			break;
 		case 2:
+			
 			window.clear();
 			window.draw(mapBgSprite);
-			Player.Draw(window);
-			Player.Update(deltaTime);
+			PlayerA.Draw(window);
+			PlayerA.Update(deltaTime);
+			Collider playerCollision = PlayerA.GetCollider();
+			platform1.GetCollider().CheckCollision(playerCollision, 0.0f);
+			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f);
+			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f);
+			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f);
+			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f);
 			//window.draw(shapeSpriteCharacter);
+			window.draw(collision);
+			platform1.Draw(window);
+			platformLeft.Draw(window);
+			platformRight.Draw(window);
 			window.display();
 			break;
 		}
