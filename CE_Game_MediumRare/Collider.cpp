@@ -1,4 +1,5 @@
 #include "Collider.h"
+#include <iostream>
 
 Collider::Collider(sf::RectangleShape& body) :
 	body(body)
@@ -9,12 +10,14 @@ Collider::~Collider()
 {
 }
 
-bool Collider::CheckCollision(Collider& other, float push)
+bool Collider::CheckCollision(Collider& other, float push, float type, float* buttonStatus)
 {
 	sf::Vector2f otherPosition = other.GetPosition();
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
 	sf::Vector2f thisPosition = GetPosition();
 	sf::Vector2f thisHalfSize = GetHalfSize();
+
+	int *status = 0;
 
 	float deltaX = otherPosition.x - thisPosition.x;
 	float deltaY = otherPosition.y - thisPosition.y;
@@ -25,9 +28,16 @@ bool Collider::CheckCollision(Collider& other, float push)
 	if (intersectX < 0.0f && intersectY < 0.0f)
 	{
 		push = std::min(std::max(push, 0.0f), 1.0f);
-
 		if (intersectX > intersectY)
 		{
+			if (type > 0.0f)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && *buttonStatus == 0.0f)
+				{
+					std::cout << "KeyPress Space 1" <<std::endl;
+					*buttonStatus = 1.0f;
+				}
+			}
 			if (deltaX > 0.0f)
 			{
 				Move(intersectX * (1.0f - push), 0.0f);
@@ -41,6 +51,14 @@ bool Collider::CheckCollision(Collider& other, float push)
 		}
 		else
 		{
+			if (type > 0.0f)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && *buttonStatus == 1.0f)
+				{
+					std::cout << "KeyPress Space 2"<<std::endl;
+					*buttonStatus = 0.0f;
+				}
+			}
 			if (deltaY > 0.0f)
 			{
 				Move(0.0f, intersectY * (1.0f - push));

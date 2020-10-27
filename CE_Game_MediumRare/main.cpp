@@ -58,12 +58,17 @@ int main()
 	////// Platform
 
 	Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+	Platform platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 400.0f));
 	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
 	Platform platformRight(nullptr, sf::Vector2f(200.0f, 1500.0f), sf::Vector2f(1105.0f, 0.0f));
 	Platform platformTop(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, -550.0f));
 	Platform platformBottom(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, 1270.0f));
 
+	////// Variable Pointer
 	float deltaTime = 0.0f;
+	float buttonStatus = 0.0f;
+	float* buttonStatusTemp;
+	float bStatusTemp = 0.0f;
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
 	shapeSpriteCharacter.setTexture(playerTexture);
@@ -73,9 +78,6 @@ int main()
 	shapeSpriteCharacter.setTextureRect(sf::IntRect(0, 0, spriteSizeX, spriteSizeY));
 	shapeSpriteCharacter.setPosition({ -200.f, -200.f });*/
 	////// Object
-	sf::CircleShape collision(100.f);
-	collision.setPosition({ 700.f, 200.f });
-	collision.setFillColor(sf::Color::Red);
 
 	////// Menu
 	Menu menu(window.getSize().x, window.getSize().y);
@@ -142,6 +144,7 @@ int main()
 		if (gameStateMachine == 2)
 		{
 			//Set Object type ID if 1 = Wall 2 = Interact
+			//Sent CurrentObjectID //Return Object ID
 		}
 		
 		
@@ -160,13 +163,14 @@ int main()
 			PlayerA.Draw(window);
 			PlayerA.Update(deltaTime);
 			Collider playerCollision = PlayerA.GetCollider();
-			platform1.GetCollider().CheckCollision(playerCollision, 0.0f);
-			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f);
-			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f);
-			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f);
-			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f);
+			buttonStatusTemp = &buttonStatus;
+			platform1.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp);
+			platform2.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f,buttonStatusTemp);
+			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp);
+			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
+			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
+			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
 			//window.draw(shapeSpriteCharacter);
-			window.draw(collision);
 			platform1.Draw(window);
 			platformLeft.Draw(window);
 			platformRight.Draw(window);
