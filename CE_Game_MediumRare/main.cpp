@@ -66,7 +66,7 @@ int main()
 
 	////// Variable Pointer
 	float deltaTime = 0.0f;
-	float buttonStatus = 0.0f;
+	float buttonStatus = 1.0f;
 	float* buttonStatusTemp;
 	float bStatusTemp = 0.0f;
 	sf::Clock clock;
@@ -164,12 +164,12 @@ int main()
 			PlayerA.Update(deltaTime);
 			Collider playerCollision = PlayerA.GetCollider();
 			buttonStatusTemp = &buttonStatus;
-			platform1.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp);
-			platform2.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f,buttonStatusTemp);
-			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp);
-			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
-			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
-			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp);
+			platform1.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,1.0f);
+			platform2.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f,buttonStatusTemp,2.0f);
+			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f);
+			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f);
+			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f);
+			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f);
 			//window.draw(shapeSpriteCharacter);
 			platform1.Draw(window);
 			platformLeft.Draw(window);

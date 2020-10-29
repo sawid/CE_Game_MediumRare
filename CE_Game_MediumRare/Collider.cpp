@@ -10,7 +10,7 @@ Collider::~Collider()
 {
 }
 
-bool Collider::CheckCollision(Collider& other, float push, float type, float* buttonStatus)
+bool Collider::CheckCollision(Collider& other, float push, float type, float* buttonStatus,float buttonID)
 {
 	sf::Vector2f otherPosition = other.GetPosition();
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
@@ -32,10 +32,10 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 		{
 			if (type > 0.0f)
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && *buttonStatus == 0.0f)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && buttonID == *buttonStatus)
 				{
-					std::cout << "KeyPress Space 1" <<std::endl;
-					*buttonStatus = 1.0f;
+					std::cout << "KeyPress Space "<< *buttonStatus <<std::endl;
+					*buttonStatus += 1.0f;
 				}
 			}
 			if (deltaX > 0.0f)
@@ -53,10 +53,10 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 		{
 			if (type > 0.0f)
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && *buttonStatus == 1.0f)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && buttonID == *buttonStatus)
 				{
-					std::cout << "KeyPress Space 2"<<std::endl;
-					*buttonStatus = 0.0f;
+					std::cout << "KeyPress Space " << *buttonStatus << std::endl;
+					*buttonStatus += 1.0f;
 				}
 			}
 			if (deltaY > 0.0f)
