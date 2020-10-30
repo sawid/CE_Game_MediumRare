@@ -3,6 +3,7 @@
 #include "GameMain.h"
 #include "Player.h"
 #include "Platform.h";
+#include <sstream>
 
 
 
@@ -58,17 +59,19 @@ int main()
 	////// Platform
 
 	Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
-	Platform platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 400.0f));
+	Platform platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 600.0f));
 	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
 	Platform platformRight(nullptr, sf::Vector2f(200.0f, 1500.0f), sf::Vector2f(1105.0f, 0.0f));
 	Platform platformTop(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, -550.0f));
 	Platform platformBottom(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, 1270.0f));
 
 	////// Variable Pointer
+
 	float deltaTime = 0.0f;
 	float buttonStatus = 1.0f;
 	float* buttonStatusTemp;
 	float bStatusTemp = 0.0f;
+	float scorePrint = 0.0f;
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
 	shapeSpriteCharacter.setTexture(playerTexture);
@@ -80,10 +83,40 @@ int main()
 	////// Object
 
 	////// Menu
+
 	Menu menu(window.getSize().x, window.getSize().y);
+	////// Scoreboard
+
+	sf::Font scoreboardFont;
+	if (!scoreboardFont.loadFromFile("DB.ttf"))
+	{
+		std::cout << "Load Font Scoreboard failed" << std::endl;
+	}
+	// Scoreboard - Title
+
+	sf::Text scoreboard;
+	scoreboard.setFont(scoreboardFont);
+	scoreboard.setCharacterSize(50);
+	scoreboard.setColor(sf::Color::Black);
+	scoreboard.setString("ScoreNow");
+	scoreboard.setPosition(sf::Vector2f(20, 10));
+	// Scoreboard - ScoreNow
+
+	std::ostringstream scorePrintSS;
+	scorePrintSS << scorePrint;
+	std::string scorePrintString(scorePrintSS.str());
+	sf::Text scoreNow;
+	scoreNow.setFont(scoreboardFont);
+	scoreNow.setCharacterSize(50);
+	scoreNow.setColor(sf::Color::Black);
+	scoreNow.setString("0");
+	scoreNow.setPosition(sf::Vector2f(20, 50));
+
+
 
 	while (window.isOpen())
 	{
+		scoreNow.setString(std::to_string(buttonStatus));
 		deltaTime = clock.restart().asSeconds();
 		sf::Event event;
 
@@ -171,8 +204,11 @@ int main()
 			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f);
 			//window.draw(shapeSpriteCharacter);
 			platform1.Draw(window);
+			platform2.Draw(window);
 			platformLeft.Draw(window);
 			platformRight.Draw(window);
+			window.draw(scoreboard);
+			window.draw(scoreNow);
 			window.display();
 			break;
 		}

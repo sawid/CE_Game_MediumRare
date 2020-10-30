@@ -1,12 +1,13 @@
 #define SFML_NO_DEPRECATED_WARNINGS
 #include "Menu.h"
+#include <iostream>
 
 
 Menu::Menu(float width, float height)
 {
 	if (!font.loadFromFile("DB.ttf"))
 	{
-		// handle error
+		std::cout << "Load Font Menu failed" << std::endl;
 	}
 
 	menu[0].setFont(font);
