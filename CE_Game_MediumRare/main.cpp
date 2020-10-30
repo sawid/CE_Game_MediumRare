@@ -157,7 +157,6 @@ int main()
 			window.display();
 			break;
 		case 2:
-			
 			window.clear();
 			window.draw(mapBgSprite);
 			PlayerA.Draw(window);
