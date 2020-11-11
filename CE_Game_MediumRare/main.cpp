@@ -9,12 +9,18 @@
 
 int main()
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
 	// General Variable
 	int gameStateMachine = 1;
 	int animationFrame = 0;
 	int BDishStatus[10] = { 1,1,1,1,1,1,1,1,1,1 };
-	std::string ingredient[10] = { "Raw Chicken","Raw Porkchop","Papaya","Raw Shrimp","Raw Chicken","Vegetable","Chrispy Porkchop","Dough","Noodle Pasta" };
+	std::string ingredient[27] = { "Raw Chicken","Raw Porkchop","Papaya","Raw Shrimp","Raw Chicken","Vegetable","Chrispy Porkchop","Dough","Noodle Pasta"
+		,"Sliced Raw Chicken","Krapao Gai","Sliced Raw Porkchop","Ko Moo Yang","Sliced Papaya","Som Tum","Cooked Shrimp","Tom Yum Kung","Grinded Raw Chicken","Gai Tom Nam Pla"
+		,"Cleaned Vegetable","Salad","Grinded Chrispy Porkchop","Krapao Mookob","Sliced Dough","Pizza","Grinded Noodle Pasta","Spaghetti"};
 	std::string foodNameList[10] = { "Krapao Gai","Ko Moo Yang","Som Tum","Tom Yum Kung","Gai Tom Nam Pla","Salad","Krapao Mookob","Pizza","Spaghetti" };
+	std::string objectName[7] = { "Refrigerator","Oven","Cooking Basin","Grinder","Fryer Machine","Slicer","Delivery Point" };
+	int receiptList[9][4] = { { 0,5,4,6 },{ 0,5,1,6 },{ 0,5,2,6 },{ 0,2,4,6 },{ 0,3,1,6 },{ 0,2,3,6 },{ 0,3,4,6 },{ 0,5,1,6 },{ 0,3,1,6 } };
+	int receiptNameList[9][3] = { { 0,9,10 },{ 1,11,12 },{ 2,13,14 },{ 3,15,16 },{ 4,17,18 },{ 5,19,20 },{ 6,21,22 },{ 7,23,24 },{ 8,25,26 } };
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "MediumRare!");
 
 	////// TitleTexture
@@ -218,7 +224,7 @@ int main()
 
 	////// Food Menu System
 
-	int currentMenu = 1;
+	int currentMenu = 0;
 	float requiredInt = 0.0f;
 	sf::Text foodMenuTitle;
 	foodMenuTitle.setFont(scoreboardFont);
@@ -274,8 +280,13 @@ int main()
 
 	while (window.isOpen())
 	{
+		if (currentMenu == 0)
+		{
+			currentMenu = 1;
+			//currentMenu = rand() % 10;
+		}
 		// Set food
-		switch ((int)buttonStatus)
+		/*switch ((int)buttonStatus)
 		{
 		case 1 :
 			requiredIntMenu.setString(ingredient[0]);
@@ -287,15 +298,38 @@ int main()
 			currentMenu = 2;
 			requiredIntMenu.setString(ingredient[2]);
 			break;
-		}
+		}*/
 		switch (currentMenu)
 		{
 		case 1:
 			foodName.setString(foodNameList[0]);
+
 			break;
 		case 2:
 			foodName.setString(foodNameList[1]);
 			break;
+		case 3:
+			foodName.setString(foodNameList[2]);
+			break;
+		case 4:
+			foodName.setString(foodNameList[3]);
+			break;
+		case 5:
+			foodName.setString(foodNameList[4]);
+			break;
+		case 6:
+			foodName.setString(foodNameList[5]);
+			break;
+		case 7:
+			foodName.setString(foodNameList[6]);
+			break;
+		case 8:
+			foodName.setString(foodNameList[7]);
+			break;
+		case 9:
+			foodName.setString(foodNameList[8]);
+			break;
+
 		}
 
 		scoreNow.setString(std::to_string(scoreDisplay));
