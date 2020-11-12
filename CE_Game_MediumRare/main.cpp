@@ -132,6 +132,7 @@ int main()
 	float bStatusTemp = 0.0f;
 	float scorePrint = 0.0f;
 	int* statusTemp = 0;
+	float nextObjectRequest = 0.0f;
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
 	shapeSpriteCharacter.setTexture(playerTexture);
