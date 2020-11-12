@@ -19,7 +19,7 @@ int main()
 		,"Cleaned Vegetable","Salad","Grinded Chrispy Porkchop","Krapao Mookob","Sliced Dough","Pizza","Grinded Noodle Pasta","Spaghetti"};
 	std::string foodNameList[10] = { "Krapao Gai","Ko Moo Yang","Som Tum","Tom Yum Kung","Gai Tom Nam Pla","Salad","Krapao Mookob","Pizza","Spaghetti" };
 	std::string objectName[7] = { "Refrigerator","Oven","Cooking Basin","Grinder","Fryer Machine","Slicer","Delivery Point" };
-	int receiptList[9][4] = { { 0,5,4,6 },{ 0,5,1,6 },{ 0,5,2,6 },{ 0,2,4,6 },{ 0,3,1,6 },{ 0,2,3,6 },{ 0,3,4,6 },{ 0,5,1,6 },{ 0,3,1,6 } };
+	float receiptList[9][4] = { { 0,5,4,6 },{ 0,5,1,6 },{ 0,5,2,6 },{ 0,2,4,6 },{ 0,3,1,6 },{ 0,2,3,6 },{ 0,3,4,6 },{ 0,5,1,6 },{ 0,3,1,6 } };
 	int receiptNameList[9][3] = { { 0,9,10 },{ 1,11,12 },{ 2,13,14 },{ 3,15,16 },{ 4,17,18 },{ 5,19,20 },{ 6,21,22 },{ 7,23,24 },{ 8,25,26 } };
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "MediumRare!");
 
@@ -116,6 +116,8 @@ int main()
 
 	Platform platformOven(&objectOven, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(415.0f, 135.0f));
 	Platform platformRefri(&objectRefri, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(415.0f, 600.0f));
+	Platform platformDeliver(&objectDeliver, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 600.0f));
+	Platform platformFryer(&objectFryer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 135.0f));
 	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 600.0f));
 
 	// Edge Background
@@ -127,12 +129,14 @@ int main()
 	////// Variable Pointer
 
 	float deltaTime = 0.0f;
-	float buttonStatus = 1.0f;
+	float buttonStatus = 0.0f;
 	float* buttonStatusTemp;
 	float bStatusTemp = 0.0f;
 	float scorePrint = 0.0f;
 	int* statusTemp = 0;
-	float nextObjectRequest = 0.0f;
+	int nextObjectRequest = 0;
+	int currentMenu = 0;
+	float nextObjectTemp = 0.0f;
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
 	shapeSpriteCharacter.setTexture(playerTexture);
@@ -225,7 +229,6 @@ int main()
 
 	////// Food Menu System
 
-	int currentMenu = 0;
 	float requiredInt = 0.0f;
 	sf::Text foodMenuTitle;
 	foodMenuTitle.setFont(scoreboardFont);
@@ -281,11 +284,23 @@ int main()
 
 	while (window.isOpen())
 	{
-		if (currentMenu == 0)
+		if (buttonStatus == 3.0f)
 		{
 			currentMenu = 1;
 			//currentMenu = rand() % 10;
+			buttonStatus = 0.0f;
+			nextObjectRequest = 0;
 		}
+		if (buttonStatus == 1.0f)
+		{
+			nextObjectRequest = 1;
+		}
+		else if (buttonStatus == 2.0f)
+		{
+			nextObjectRequest = 2;
+		}
+		foodName.setString(foodNameList[currentMenu]);
+		requiredIntMenu.setString(ingredient[receiptNameList[currentMenu][(int)buttonStatus]]);
 		// Set food
 		/*switch ((int)buttonStatus)
 		{
@@ -300,7 +315,7 @@ int main()
 			requiredIntMenu.setString(ingredient[2]);
 			break;
 		}*/
-		switch (currentMenu)
+		/*switch (currentMenu)
 		{
 		case 1:
 			foodName.setString(foodNameList[0]);
@@ -331,7 +346,7 @@ int main()
 			foodName.setString(foodNameList[8]);
 			break;
 
-		}
+		}*/
 
 		scoreNow.setString(std::to_string(scoreDisplay));
 		deltaTime = clock.restart().asSeconds();
@@ -483,20 +498,26 @@ int main()
 			PlayerA.Update(deltaTime);
 			Collider playerCollision = PlayerA.GetCollider();
 			buttonStatusTemp = &buttonStatus;
-			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,1.0f, statusTemp,&scoreDisplay);
-			platformRefri.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 2.0f, statusTemp, &scoreDisplay);
-			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay);
-			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay);
-			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay);
-			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay);
+			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,5.0f, statusTemp,&scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
+			platformRefri.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 0.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
+			platformDeliver.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 6.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
+			platformFryer.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 4.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
+
+			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
+			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
+			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
+			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
 			//window.draw(shapeSpriteCharacter);
 			if (BDishStatus[0] == 1)
 			{
-				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay);
+				
+				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay,&nextObjectTemp);
 				platformBDish.Draw(window);
 			}
+			platformFryer.Draw(window);
 			platformOven.Draw(window);
 			platformRefri.Draw(window);
+			platformDeliver.Draw(window);
 			platformLeft.Draw(window);
 			platformRight.Draw(window);
 			window.draw(scoreboard);
