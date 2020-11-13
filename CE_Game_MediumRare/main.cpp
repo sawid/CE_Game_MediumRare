@@ -290,6 +290,7 @@ int main()
 			//currentMenu = rand() % 10;
 			buttonStatus = 0.0f;
 			nextObjectRequest = 0;
+			scoreDisplay += 1000;
 		}
 		if (buttonStatus == 1.0f)
 		{

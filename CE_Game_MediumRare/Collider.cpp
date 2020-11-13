@@ -36,12 +36,12 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 				{
 					std::cout << "KeyPress Space "<< *buttonStatus <<std::endl;
 					*buttonStatus += 1.0f;
-					*score += 1;
+					
 				}
 			}
 			if (type == 2.0f)
 			{
-				*score -= 1;
+				*score -= 100;
 				*objectStatus = 0;
 			}
 			if (deltaX > 0.0f)
@@ -63,12 +63,12 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 				{
 					std::cout << "KeyPress Space " << *buttonStatus << std::endl;
 					*buttonStatus += 1.0f;
-					*score += 1;
+					
 				}
 			}
 			if (type == 2.0f)
 			{
-				*score -= 1;
+				*score -= 100;
 				*objectStatus = 0;
 			}
 			if (deltaY > 0.0f)
