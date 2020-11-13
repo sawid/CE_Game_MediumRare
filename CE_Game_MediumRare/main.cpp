@@ -234,7 +234,7 @@ int main()
 	foodMenuTitle.setFont(scoreboardFont);
 	foodMenuTitle.setCharacterSize(50);
 	foodMenuTitle.setColor(sf::Color::Black);
-	foodMenuTitle.setString("Required Next");
+	foodMenuTitle.setString("Holding Ingredient");
 	foodMenuTitle.setPosition(sf::Vector2f(1020, 140));
 	sf::Text requiredIntMenu;
 	requiredIntMenu.setFont(scoreboardFont);
