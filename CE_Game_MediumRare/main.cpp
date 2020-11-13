@@ -284,7 +284,7 @@ int main()
 
 	while (window.isOpen())
 	{
-		if (buttonStatus == 3.0f)
+		if (buttonStatus == 4.0f)
 		{
 			currentMenu = 1;
 			//currentMenu = rand() % 10;
@@ -299,8 +299,21 @@ int main()
 		{
 			nextObjectRequest = 2;
 		}
-		foodName.setString(foodNameList[currentMenu]);
-		requiredIntMenu.setString(ingredient[receiptNameList[currentMenu][(int)buttonStatus]]);
+		else if (buttonStatus == 3.0f)
+		{
+			nextObjectRequest = 3;
+		}
+		if (buttonStatus == 0.0f)
+		{
+			foodName.setString(foodNameList[currentMenu]);
+			requiredIntMenu.setString("-");
+		}
+		else
+		{
+			foodName.setString(foodNameList[currentMenu]);
+			requiredIntMenu.setString(ingredient[receiptNameList[currentMenu][(int)buttonStatus - 1]]);
+		}
+		
 		// Set food
 		/*switch ((int)buttonStatus)
 		{
