@@ -379,6 +379,31 @@ int main()
 			{
 				foodName.setString(foodNameList[currentMenu]);
 				requiredIntMenu.setString("Undercooking");
+				int effectObjectID = receiptList[currentMenu][nextObjectRequest];
+				switch (effectObjectID)
+				{
+				case 5:
+					objectOven.loadFromFile("Asset/Image/Object_1_Stove_Active.png");
+					break;
+				case 4:
+					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer_Active.png");
+					break;
+				}
+			}
+			else if (cooldownCounter == 2)
+			{
+				foodName.setString(foodNameList[currentMenu]);
+				requiredIntMenu.setString("Ready to Get!");
+				int effectObjectID = receiptList[currentMenu][nextObjectRequest];
+				switch (effectObjectID)
+				{
+				case 5:
+					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+					break;
+				case 4:
+					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+					break;
+				}
 			}
 			else
 			{
