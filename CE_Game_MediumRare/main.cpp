@@ -137,6 +137,12 @@ int main()
 	int nextObjectRequest = 0;
 	int currentMenu = 0;
 	float nextObjectTemp = 0.0f;
+	bool countdownTimerStatus = false;
+	int availbleButtonStatus = 1;
+	int availbleLimit = 0;
+	int cooldownCounter = 0;
+	int availbleCooldownCounter = 0;
+
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
 	shapeSpriteCharacter.setTexture(playerTexture);
@@ -277,6 +283,27 @@ int main()
 	showTimer.setString("90");
 	showTimer.setPosition(sf::Vector2f(20, 190));
 
+	sf::Text titleCoolDown;
+	titleCoolDown.setFont(scoreboardFont);
+	titleCoolDown.setCharacterSize(50);
+	titleCoolDown.setColor(sf::Color::Black);
+	titleCoolDown.setString("Cooldown Left");
+	titleCoolDown.setPosition(sf::Vector2f(20, 280));
+
+	sf::Text coolDownTimer;
+	coolDownTimer.setFont(scoreboardFont);
+	coolDownTimer.setCharacterSize(50);
+	coolDownTimer.setColor(sf::Color::Black);
+	coolDownTimer.setString("0");
+	coolDownTimer.setPosition(sf::Vector2f(20, 330));
+	// CooldownTimer System
+
+	sf::Clock clockCooldownTimer;
+	float cooldownTimerTime = 0.0f;
+	int initialTimerCooldown = 1;
+	int limitTimerCooldown = 6;
+	int distCooldownTime = 6;
+
 	// Delay System
 	sf::Time delay = sf::seconds(0.1);
 	// Speed Control System
@@ -284,6 +311,7 @@ int main()
 
 	while (window.isOpen())
 	{
+		
 		if (buttonStatus == 4.0f)
 		{
 			currentMenu = 1;
@@ -295,14 +323,50 @@ int main()
 		if (buttonStatus == 1.0f)
 		{
 			nextObjectRequest = 1;
+
 		}
 		else if (buttonStatus == 2.0f)
 		{
-			nextObjectRequest = 2;
+			if (availbleLimit == 1)
+			{
+				if (cooldownCounter == 2)
+				{
+					
+				}
+				if (cooldownCounter == 3)
+				{
+					nextObjectRequest = 2;
+					cooldownCounter = 0;
+					availbleLimit = 0;
+				}
+				
+			}
+			else if (cooldownCounter == 1)
+			{
+				availbleButtonStatus = 0;
+				countdownTimerStatus = true;
+			}
 		}
 		else if (buttonStatus == 3.0f)
 		{
-			nextObjectRequest = 3;
+			if (availbleLimit == 1)
+			{
+				if (cooldownCounter == 2)
+				{
+				}
+				if (cooldownCounter == 3)
+				{
+					nextObjectRequest = 3;
+					availbleLimit = 0;
+					cooldownCounter = 0;
+				}
+
+			}
+			else if (cooldownCounter == 1)
+			{
+				availbleButtonStatus = 0;
+				countdownTimerStatus = true;
+			}
 		}
 		if (buttonStatus == 0.0f)
 		{
@@ -311,56 +375,19 @@ int main()
 		}
 		else
 		{
-			foodName.setString(foodNameList[currentMenu]);
-			requiredIntMenu.setString(ingredient[receiptNameList[currentMenu][(int)buttonStatus - 1]]);
+			if (cooldownCounter == 1)
+			{
+				foodName.setString(foodNameList[currentMenu]);
+				requiredIntMenu.setString("Undercooking");
+			}
+			else
+			{
+				foodName.setString(foodNameList[currentMenu]);
+				requiredIntMenu.setString(ingredient[receiptNameList[currentMenu][(int)buttonStatus - 1]]);
+			}
+			
 		}
 		
-		// Set food
-		/*switch ((int)buttonStatus)
-		{
-		case 1 :
-			requiredIntMenu.setString(ingredient[0]);
-			break;
-		case 2:
-			requiredIntMenu.setString(ingredient[1]);
-			break;
-		case 3:
-			currentMenu = 2;
-			requiredIntMenu.setString(ingredient[2]);
-			break;
-		}*/
-		/*switch (currentMenu)
-		{
-		case 1:
-			foodName.setString(foodNameList[0]);
-
-			break;
-		case 2:
-			foodName.setString(foodNameList[1]);
-			break;
-		case 3:
-			foodName.setString(foodNameList[2]);
-			break;
-		case 4:
-			foodName.setString(foodNameList[3]);
-			break;
-		case 5:
-			foodName.setString(foodNameList[4]);
-			break;
-		case 6:
-			foodName.setString(foodNameList[5]);
-			break;
-		case 7:
-			foodName.setString(foodNameList[6]);
-			break;
-		case 8:
-			foodName.setString(foodNameList[7]);
-			break;
-		case 9:
-			foodName.setString(foodNameList[8]);
-			break;
-
-		}*/
 
 		scoreNow.setString(std::to_string(scoreDisplay));
 		deltaTime = clock.restart().asSeconds();
@@ -369,7 +396,7 @@ int main()
 			Timer += clockTimer.restart().asSeconds();
 			if (intialTime == 1)
 			{
-				limitTime = 21 + Timer;
+				limitTime = 91 + Timer;
 				intialTime = 0;
 			}
 			distTime = (int)floor(limitTime - Timer);
@@ -377,10 +404,31 @@ int main()
 			{
 				distTime = 0;
 				gameStateMachine = 4;
-				int endStageScore = (int)buttonStatus;
+				int endStageScore = (int)scoreDisplay;
 				scoreStage.setString(std::to_string(endStageScore));
 			}
-			std::cout << floor(distTime) << std::endl;
+			//std::cout << floor(distTime) << std::endl;
+			
+			if (countdownTimerStatus == true)
+			{
+				cooldownTimerTime += clockCooldownTimer.restart().asSeconds();
+				if (initialTimerCooldown == 1)
+				{
+					limitTimerCooldown = 6 + cooldownTimerTime;
+					initialTimerCooldown = 0;
+				}
+				distCooldownTime = (int)floor(limitTimerCooldown - cooldownTimerTime);
+				if (distCooldownTime <= 0)
+				{
+					distCooldownTime = 0;
+					availbleButtonStatus = 1;
+					countdownTimerStatus = false;
+					availbleLimit = 1;
+					initialTimerCooldown = 1;
+					cooldownCounter = 2;
+				}
+				coolDownTimer.setString(std::to_string(distCooldownTime));
+			}
 		}
 		
 		showTimer.setString(std::to_string(distTime));
@@ -512,20 +560,20 @@ int main()
 			PlayerA.Update(deltaTime);
 			Collider playerCollision = PlayerA.GetCollider();
 			buttonStatusTemp = &buttonStatus;
-			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,5.0f, statusTemp,&scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
-			platformRefri.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 0.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
-			platformDeliver.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 6.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
-			platformFryer.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 4.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest]);
+			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,5.0f, statusTemp,&scoreDisplay, &receiptList[currentMenu][nextObjectRequest],&availbleButtonStatus,&cooldownCounter);
+			platformRefri.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 0.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
+			platformDeliver.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 6.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
+			platformFryer.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 4.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
 
-			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
-			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
-			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
-			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp);
+			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 			//window.draw(shapeSpriteCharacter);
 			if (BDishStatus[0] == 1)
 			{
 				
-				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay,&nextObjectTemp);
+				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay,&nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 				platformBDish.Draw(window);
 			}
 			platformFryer.Draw(window);
@@ -536,7 +584,9 @@ int main()
 			platformRight.Draw(window);
 			window.draw(scoreboard);
 			window.draw(scoreNow);
+			window.draw(coolDownTimer);
 			window.draw(titleTimer);
+			window.draw(titleCoolDown);
 			window.draw(showTimer);
 			window.draw(foodMenuTitle);
 			window.draw(requiredIntMenu);
