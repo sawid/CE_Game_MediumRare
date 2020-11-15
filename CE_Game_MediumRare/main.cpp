@@ -114,10 +114,13 @@ int main()
 
 	////// Platform
 
-	Platform platformOven(&objectOven, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(415.0f, 135.0f));
-	Platform platformRefri(&objectRefri, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(415.0f, 600.0f));
+	Platform platformOven(&objectOven, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(425.0f, 145.0f));
+	Platform platformRefri(&objectRefri, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(415.0f, 600.0f));
 	Platform platformDeliver(&objectDeliver, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 600.0f));
 	Platform platformFryer(&objectFryer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 135.0f));
+	Platform platformSlicer(&objectSlicer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(715.0f, 135.0f));
+	Platform platformBasin(&objectBasin, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(795.0f, 245.0f));
+	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(715.0f, 405.0f));
 	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 600.0f));
 
 	// Edge Background
@@ -382,11 +385,20 @@ int main()
 				int effectObjectID = receiptList[currentMenu][nextObjectRequest];
 				switch (effectObjectID)
 				{
-				case 5:
+				case 1:
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove_Active.png");
+					break;
+				case 3:
+					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder_Active.png");
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer_Active.png");
+					break;
+				case 2:
+					objectBasin.loadFromFile("Asset/Image/Object_5_Basin_Active.png");
+					break;
+				case 5:
+					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer_Active.png");
 					break;
 				}
 			}
@@ -397,11 +409,20 @@ int main()
 				int effectObjectID = receiptList[currentMenu][nextObjectRequest];
 				switch (effectObjectID)
 				{
-				case 5:
+				case 1:
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+					break;
+				case 3:
+					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+					break;
+				case 2:
+					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
+					break;
+				case 5:
+					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
 					break;
 				}
 			}
@@ -585,10 +606,13 @@ int main()
 			PlayerA.Update(deltaTime);
 			Collider playerCollision = PlayerA.GetCollider();
 			buttonStatusTemp = &buttonStatus;
-			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,5.0f, statusTemp,&scoreDisplay, &receiptList[currentMenu][nextObjectRequest],&availbleButtonStatus,&cooldownCounter);
+			platformOven.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp,1.0f, statusTemp,&scoreDisplay, &receiptList[currentMenu][nextObjectRequest],&availbleButtonStatus,&cooldownCounter);
 			platformRefri.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 0.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
 			platformDeliver.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 6.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
 			platformFryer.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 4.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
+			platformSlicer.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 5.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
+			platformBasin.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 2.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
+			platformGrinder.GetCollider().CheckCollision(playerCollision, 1.0f, 1.0f, buttonStatusTemp, 3.0f, statusTemp, &scoreDisplay, &receiptList[currentMenu][nextObjectRequest], &availbleButtonStatus, &cooldownCounter);
 
 			platformLeft.GetCollider().CheckCollision(playerCollision, 1.0f,0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 			platformRight.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
@@ -605,6 +629,9 @@ int main()
 			platformOven.Draw(window);
 			platformRefri.Draw(window);
 			platformDeliver.Draw(window);
+			platformSlicer.Draw(window);
+			platformBasin.Draw(window);
+			platformGrinder.Draw(window);
 			platformLeft.Draw(window);
 			platformRight.Draw(window);
 			window.draw(scoreboard);
