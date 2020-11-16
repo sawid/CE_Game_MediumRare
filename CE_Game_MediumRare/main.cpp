@@ -114,14 +114,14 @@ int main()
 
 	////// Platform
 
-	Platform platformOven(&objectOven, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(425.0f, 145.0f));
-	Platform platformRefri(&objectRefri, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(415.0f, 600.0f));
+	Platform platformOven(&objectOven, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(570.0f, 90.0f));
+	Platform platformRefri(&objectRefri, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(350.0f, 70.0f));
 	Platform platformDeliver(&objectDeliver, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 600.0f));
-	Platform platformFryer(&objectFryer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 135.0f));
-	Platform platformSlicer(&objectSlicer, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(715.0f, 135.0f));
-	Platform platformBasin(&objectBasin, sf::Vector2f(136.0f, 136.0f), sf::Vector2f(815.0f, 285.0f));
-	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(715.0f, 405.0f));
-	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 600.0f));
+	Platform platformFryer(&objectFryer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(355.0f, 600.0f));
+	Platform platformSlicer(&objectSlicer, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(915.0f, 135.0f));
+	Platform platformBasin(&objectBasin, sf::Vector2f(136.0f, 136.0f), sf::Vector2f(915.0f, 285.0f));
+	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(915.0f, 555.0f));
+	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 400.0f));
 
 	// Edge Background
 	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
