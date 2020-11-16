@@ -138,13 +138,18 @@ int main()
 	float scorePrint = 0.0f;
 	int* statusTemp = 0;
 	int nextObjectRequest = 0;
-	int currentMenu = 0;
+	int currentMenu = rand() % 9;
 	float nextObjectTemp = 0.0f;
 	bool countdownTimerStatus = false;
 	int availbleButtonStatus = 1;
 	int availbleLimit = 0;
 	int cooldownCounter = 0;
 	int availbleCooldownCounter = 0;
+	int stageStatus = 1;
+	int stageTime = 61;
+	int indicatorStatus = 0;
+
+	
 
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
@@ -189,6 +194,15 @@ int main()
 	sf::Sprite stagePageDist1;
 	stagePageDist1.setTexture(stagePage1);
 	stagePageDist1.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePage2;
+	if (!stagePage2.loadFromFile("Asset/Image/Stage_Page_2.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+	sf::Sprite stagePageDist2;
+	stagePageDist2.setTexture(stagePage2);
+	stagePageDist2.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
 	sf::Texture stagePage1End;
 	if (!stagePage1End.loadFromFile("Asset/Image/Stage_Page_1_End.jpg"))
@@ -263,6 +277,26 @@ int main()
 	foodName.setString("Null");
 	foodName.setPosition(sf::Vector2f(1020, 50));
 
+	// Equipment Indicator System
+
+	sf::Text indicatorTitle;
+	indicatorTitle.setFont(scoreboardFont);
+	indicatorTitle.setCharacterSize(50);
+	indicatorTitle.setColor(sf::Color::Black);
+	indicatorTitle.setString("Go to This");
+	indicatorTitle.setPosition(sf::Vector2f(1020, 270));
+
+	sf::Texture indicatorTexture;
+	if (!indicatorTexture.loadFromFile("Asset/Image/None.png"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite indicator;
+	indicator.setTexture(indicatorTexture);
+	indicator.setTextureRect(sf::IntRect(0, 0, 140, 140));
+	indicator.setPosition(sf::Vector2f(1020, 350));
+
 	////// Timer System
 
 	float Timer = 0;
@@ -314,19 +348,47 @@ int main()
 
 	while (window.isOpen())
 	{
-		
+		int effectObjectIDPic = receiptList[currentMenu][nextObjectRequest];
+		switch (effectObjectIDPic)
+		{
+		case 0:
+			indicator.setTexture(objectRefri);
+			break;
+		case 1:
+			indicator.setTexture(objectOven);
+			break;
+		case 2:
+			indicator.setTexture(objectBasin);
+			break;
+		case 3:
+			indicator.setTexture(objectGrinder);
+			break;
+		case 4:
+			indicator.setTexture(objectFryer);
+			break;
+		case 5:
+			indicator.setTexture(objectSlicer);
+			break;
+		case 6:
+			indicator.setTexture(objectDeliver);
+			break;
+		}
 		if (buttonStatus == 4.0f)
 		{
-			currentMenu = 1;
-			//currentMenu = rand() % 10;
+			if (currentMenu)
+			{
+				scoreDisplay += 500;
+			}
+		 	//currentMenu = 1;
+			currentMenu = rand() % 9;
 			buttonStatus = 0.0f;
 			nextObjectRequest = 0;
+			
 			scoreDisplay += 1000;
 		}
 		if (buttonStatus == 1.0f)
 		{
 			nextObjectRequest = 1;
-
 		}
 		else if (buttonStatus == 2.0f)
 		{
@@ -375,6 +437,7 @@ int main()
 		{
 			foodName.setString(foodNameList[currentMenu]);
 			requiredIntMenu.setString("-");
+			
 		}
 		else
 		{
@@ -401,6 +464,7 @@ int main()
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer_Active.png");
 					break;
 				}
+				
 			}
 			else if (cooldownCounter == 2)
 			{
@@ -442,7 +506,7 @@ int main()
 			Timer += clockTimer.restart().asSeconds();
 			if (intialTime == 1)
 			{
-				limitTime = 91 + Timer;
+				limitTime = stageTime + Timer;
 				intialTime = 0;
 			}
 			distTime = (int)floor(limitTime - Timer);
@@ -460,7 +524,7 @@ int main()
 				cooldownTimerTime += clockCooldownTimer.restart().asSeconds();
 				if (initialTimerCooldown == 1)
 				{
-					limitTimerCooldown = 6 + cooldownTimerTime;
+					limitTimerCooldown = (((rand() % 3) + 3) + 1) + cooldownTimerTime;
 					initialTimerCooldown = 0;
 				}
 				distCooldownTime = (int)floor(limitTimerCooldown - cooldownTimerTime);
@@ -546,6 +610,23 @@ int main()
 				gameStateMachine = 2;
 			}
 		}
+		if (gameStateMachine == 6)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				gameStateMachine = 2;
+				stageTime = 91;
+				intialTime = 1;
+				
+			}
+		}
+		if (gameStateMachine == 4)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				gameStateMachine = 6;
+			}
+		}
 		if (gameStateMachine == 5)
 		{
 			if (event.type == sf::Event::TextEntered)
@@ -587,6 +668,11 @@ int main()
 			window.draw(stagePageDist1);
 			window.display();
 			break;
+		case 6:
+			window.clear();
+			window.draw(stagePageDist2);
+			window.display();
+			break;
 		case 4:
 			window.clear();
 			window.draw(stagePageDistEnd1);
@@ -621,7 +707,6 @@ int main()
 			//window.draw(shapeSpriteCharacter);
 			if (BDishStatus[0] == 1)
 			{
-				
 				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay,&nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 				platformBDish.Draw(window);
 			}
@@ -644,6 +729,8 @@ int main()
 			window.draw(requiredIntMenu);
 			window.draw(foodNameTitle);
 			window.draw(foodName);
+			window.draw(indicator);
+			window.draw(indicatorTitle);
 			window.display();
 			break;
 		
