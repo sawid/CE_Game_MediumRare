@@ -118,8 +118,8 @@ int main()
 	Platform platformRefri(&objectRefri, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(415.0f, 600.0f));
 	Platform platformDeliver(&objectDeliver, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 600.0f));
 	Platform platformFryer(&objectFryer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(615.0f, 135.0f));
-	Platform platformSlicer(&objectSlicer, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(715.0f, 135.0f));
-	Platform platformBasin(&objectBasin, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(795.0f, 245.0f));
+	Platform platformSlicer(&objectSlicer, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(715.0f, 135.0f));
+	Platform platformBasin(&objectBasin, sf::Vector2f(136.0f, 136.0f), sf::Vector2f(815.0f, 285.0f));
 	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(715.0f, 405.0f));
 	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 600.0f));
 
