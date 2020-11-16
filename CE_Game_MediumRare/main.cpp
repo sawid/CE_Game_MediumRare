@@ -146,10 +146,8 @@ int main()
 	int cooldownCounter = 0;
 	int availbleCooldownCounter = 0;
 	int stageStatus = 1;
-	int stageTime = 61;
-	int indicatorStatus = 0;
-
-	
+	int stageTime = 11;
+	int endpageStatus = 0;
 
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
@@ -204,14 +202,46 @@ int main()
 	stagePageDist2.setTexture(stagePage2);
 	stagePageDist2.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
+	sf::Texture stagePage3;
+	if (!stagePage3.loadFromFile("Asset/Image/Stage_Page_3.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+	sf::Sprite stagePageDist3;
+	stagePageDist3.setTexture(stagePage3);
+	stagePageDist3.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	//////////
+
 	sf::Texture stagePage1End;
 	if (!stagePage1End.loadFromFile("Asset/Image/Stage_Page_1_End.jpg"))
 	{
 		std::cout << "Load failed" << std::endl;
 	}
+
 	sf::Sprite stagePageDistEnd1;
 	stagePageDistEnd1.setTexture(stagePage1End);
 	stagePageDistEnd1.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePage2End;
+	if (!stagePage2End.loadFromFile("Asset/Image/Stage_Page_2_End.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageDistEnd2;
+	stagePageDistEnd2.setTexture(stagePage2End);
+	stagePageDistEnd2.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePage3End;
+	if (!stagePage3End.loadFromFile("Asset/Image/Stage_Page_3_End.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageDistEnd3;
+	stagePageDistEnd3.setTexture(stagePage3End);
+	stagePageDistEnd3.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
 	Menu menu(window.getSize().x, window.getSize().y);
 
@@ -375,7 +405,7 @@ int main()
 		}
 		if (buttonStatus == 4.0f)
 		{
-			if (currentMenu)
+			if (currentMenu == 7)
 			{
 				scoreDisplay += 500;
 			}
@@ -515,6 +545,7 @@ int main()
 				distTime = 0;
 				gameStateMachine = 4;
 				int endStageScore = (int)scoreDisplay;
+				endpageStatus += 1;
 				scoreStage.setString(std::to_string(endStageScore));
 			}
 			//std::cout << floor(distTime) << std::endl;
@@ -615,16 +646,37 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
 				gameStateMachine = 2;
-				stageTime = 91;
+				currentMenu = rand() % 9;
+				buttonStatus = 0.0f;
+				nextObjectRequest = 0;
+				stageTime = 11;
 				intialTime = 1;
-				
+			}
+		}
+		if (gameStateMachine == 7)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				gameStateMachine = 2;
+				currentMenu = rand() % 9;
+				buttonStatus = 0.0f;
+				nextObjectRequest = 0;
+				stageTime = 11;
+				intialTime = 1;
 			}
 		}
 		if (gameStateMachine == 4)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				gameStateMachine = 6;
+				if (endpageStatus == 1)
+				{
+					gameStateMachine = 6;
+				}
+				else if (endpageStatus == 2)
+				{
+					gameStateMachine = 7;
+				}
 			}
 		}
 		if (gameStateMachine == 5)
@@ -673,9 +725,25 @@ int main()
 			window.draw(stagePageDist2);
 			window.display();
 			break;
+		case 7:
+			window.clear();
+			window.draw(stagePageDist3);
+			window.display();
+			break;
 		case 4:
 			window.clear();
-			window.draw(stagePageDistEnd1);
+			if (endpageStatus == 1)
+			{
+				window.draw(stagePageDistEnd1);
+			}
+			else if (endpageStatus == 2)
+			{
+				window.draw(stagePageDistEnd2);
+			}
+			else if (endpageStatus == 3)
+			{
+				window.draw(stagePageDistEnd3);
+			}
 			window.draw(scoreStage);
 			window.display();
 			break;
@@ -733,9 +801,6 @@ int main()
 			window.draw(indicatorTitle);
 			window.display();
 			break;
-		
 		}
-		
-		
 	}
 }
