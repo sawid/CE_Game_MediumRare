@@ -579,8 +579,6 @@ int main()
 				nextObjectRequest = 0;
 				currentMenu = rand() % 9;
 				availbleButtonStatus = 1;
-
-
 				scoreStage.setString(std::to_string(endStageScore));
 			}
 			//std::cout << floor(distTime) << std::endl;
