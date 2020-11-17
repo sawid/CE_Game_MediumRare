@@ -14,6 +14,7 @@ int main()
 	int gameStateMachine = 1;
 	int animationFrame = 0;
 	int BDishStatus[10] = { 1,1,1,1,1,1,1,1,1,1 };
+	int BEggStatus[10] = { 1,1,1,1,1,1,1,1,1,1 };
 	std::string ingredient[27] = { "Raw Chicken","Raw Porkchop","Papaya","Raw Shrimp","Raw Chicken","Vegetable","Chrispy Porkchop","Dough","Noodle Pasta"
 		,"Sliced Raw Chicken","Krapao Gai","Sliced Raw Porkchop","Ko Moo Yang","Sliced Papaya","Som Tum","Cooked Shrimp","Tom Yum Kung","Grinded Raw Chicken","Gai Tom Nam Pla"
 		,"Cleaned Vegetable","Salad","Grinded Chrispy Porkchop","Krapao Mookob","Sliced Dough","Pizza","Grinded Noodle Pasta","Spaghetti"};
@@ -121,7 +122,25 @@ int main()
 	Platform platformSlicer(&objectSlicer, sf::Vector2f(129.0f, 129.0f), sf::Vector2f(915.0f, 135.0f));
 	Platform platformBasin(&objectBasin, sf::Vector2f(136.0f, 136.0f), sf::Vector2f(915.0f, 285.0f));
 	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(915.0f, 555.0f));
+
 	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 400.0f));
+	Platform platformBDish2(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(705.0f, 450.0f));
+
+	Platform platformBDish3(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(505.0f, 600.0f));
+	Platform platformBDish4(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(805.0f, 400.0f));
+	Platform platformBDish5(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(605.0f, 250.0f));
+
+	Platform platformBDish6(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(405.0f, 200.0f));
+	Platform platformBDish7(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(605.0f, 500.0f));
+	Platform platformBDish8(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(855.0f, 650.0f));
+
+	Platform platformBEgg1(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(500.0f, 150.0f));
+
+	Platform platformBEgg2(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(600.0f, 550.0f));
+
+	Platform platformBEgg3(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(500.0f, 350.0f));
+	Platform platformBEgg4(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(300.0f, 450.0f));
+
 
 	// Edge Background
 	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
@@ -146,8 +165,10 @@ int main()
 	int cooldownCounter = 0;
 	int availbleCooldownCounter = 0;
 	int stageStatus = 1;
-	int stageTime = 11;
+	int stageTime = 121;
 	int endpageStatus = 0;
+	int stageCooldownTime;
+
 
 	sf::Clock clock;
 	/*sf::Sprite shapeSpriteCharacter;
@@ -287,7 +308,7 @@ int main()
 	foodMenuTitle.setFont(scoreboardFont);
 	foodMenuTitle.setCharacterSize(50);
 	foodMenuTitle.setColor(sf::Color::Black);
-	foodMenuTitle.setString("Holding Ingredient");
+	foodMenuTitle.setString("Holding Ingre");
 	foodMenuTitle.setPosition(sf::Vector2f(1020, 140));
 	sf::Text requiredIntMenu;
 	requiredIntMenu.setFont(scoreboardFont);
@@ -540,22 +561,49 @@ int main()
 				intialTime = 0;
 			}
 			distTime = (int)floor(limitTime - Timer);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+			{
+				distTime = 0;
+			}
 			if (distTime <= 0)
 			{
 				distTime = 0;
 				gameStateMachine = 4;
 				int endStageScore = (int)scoreDisplay;
 				endpageStatus += 1;
+				cooldownCounter = 0;
+				initialTimerCooldown = 1;
+				countdownTimerStatus = false;
+				distCooldownTime = 0;
+				buttonStatus = 0.0f;
+				nextObjectRequest = 0;
+				currentMenu = rand() % 9;
+				availbleButtonStatus = 1;
+
+
 				scoreStage.setString(std::to_string(endStageScore));
 			}
 			//std::cout << floor(distTime) << std::endl;
 			
 			if (countdownTimerStatus == true)
 			{
+
 				cooldownTimerTime += clockCooldownTimer.restart().asSeconds();
 				if (initialTimerCooldown == 1)
 				{
-					limitTimerCooldown = (((rand() % 3) + 3) + 1) + cooldownTimerTime;
+					if (stageStatus == 1)
+					{
+						stageCooldownTime = ((rand() % 3) + 3);
+					}
+					if (stageStatus == 2)
+					{
+						stageCooldownTime = ((rand() % 4) + 4);
+					}
+					if (stageStatus == 3)
+					{
+						stageCooldownTime = ((rand() % 4) + 5);
+					}
+					limitTimerCooldown = (stageCooldownTime + 1) + cooldownTimerTime;
 					initialTimerCooldown = 0;
 				}
 				distCooldownTime = (int)floor(limitTimerCooldown - cooldownTimerTime);
@@ -631,6 +679,11 @@ int main()
 		}
 		if (gameStateMachine == 2)
 		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				std::cout << nextObjectRequest << std::endl;
+				std::cout << cooldownCounter << std::endl;
+			}
 			//Set Object type ID if 1 = Wall 2 = Interact 3 = Buff
 			//Sent CurrentObjectID //Return Object ID
 		}
@@ -642,27 +695,26 @@ int main()
 			}
 		}
 		if (gameStateMachine == 6)
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{ 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 			{
 				gameStateMachine = 2;
-				currentMenu = rand() % 9;
-				buttonStatus = 0.0f;
-				nextObjectRequest = 0;
-				stageTime = 11;
+				stageTime = 91;
 				intialTime = 1;
+				stageStatus = 2;
+				cooldownCounter = 0;
 			}
 		}
 		if (gameStateMachine == 7)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 			{
 				gameStateMachine = 2;
-				currentMenu = rand() % 9;
-				buttonStatus = 0.0f;
-				nextObjectRequest = 0;
-				stageTime = 11;
+				stageTime = 81;
 				intialTime = 1;
+				stageStatus = 3;
+				cooldownCounter = 0;
+
 			}
 		}
 		if (gameStateMachine == 4)
@@ -672,10 +724,12 @@ int main()
 				if (endpageStatus == 1)
 				{
 					gameStateMachine = 6;
+
 				}
 				else if (endpageStatus == 2)
 				{
 					gameStateMachine = 7;
+
 				}
 			}
 		}
@@ -773,10 +827,73 @@ int main()
 			platformTop.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 			platformBottom.GetCollider().CheckCollision(playerCollision, 1.0f, 0.0f, &bStatusTemp,0.0f, statusTemp, &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 			//window.draw(shapeSpriteCharacter);
-			if (BDishStatus[0] == 1)
+			if (BDishStatus[0] == 1 && stageStatus == 1)
 			{
 				platformBDish.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[0], &scoreDisplay,&nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
 				platformBDish.Draw(window);
+			}
+			if (BDishStatus[1] == 1 && stageStatus == 1)
+			{
+				platformBDish2.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[1], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish2.Draw(window);
+			}
+
+			if (BDishStatus[2] == 1 && stageStatus == 2)
+			{
+				platformBDish3.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[2], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish3.Draw(window);
+			}
+
+			if (BDishStatus[3] == 1 && stageStatus == 2)
+			{
+				platformBDish4.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[3], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish4.Draw(window);
+			}
+			if (BDishStatus[4] == 1 && stageStatus == 2)
+			{
+				platformBDish5.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[4], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish5.Draw(window);
+			}
+
+			if (BDishStatus[5] == 1 && stageStatus == 3)
+			{
+				platformBDish6.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[5], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish6.Draw(window);
+			}
+
+			if (BDishStatus[6] == 1 && stageStatus == 3)
+			{
+				platformBDish7.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[6], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish7.Draw(window);
+			}
+			if (BDishStatus[7] == 1 && stageStatus == 3)
+			{
+				platformBDish8.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BDishStatus[7], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBDish8.Draw(window);
+			}
+
+			if (BEggStatus[0] == 1 && stageStatus == 1)
+			{
+				platformBEgg1.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BEggStatus[0], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBEgg1.Draw(window);
+			}
+
+
+			if (BEggStatus[1] == 1 && stageStatus == 2)
+			{
+				platformBEgg2.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BEggStatus[1], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBEgg2.Draw(window);
+			}
+
+			if (BEggStatus[2] == 1 && stageStatus == 3)
+			{
+				platformBEgg3.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BEggStatus[2], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBEgg3.Draw(window);
+			}
+			if (BEggStatus[3] == 1 && stageStatus == 3)
+			{
+				platformBEgg4.GetCollider().CheckCollision(playerCollision, 1.0f, 2.0f, buttonStatusTemp, 3.0f, &BEggStatus[3], &scoreDisplay, &nextObjectTemp, &availbleButtonStatus, &cooldownCounter);
+				platformBEgg4.Draw(window);
 			}
 			platformFryer.Draw(window);
 			platformOven.Draw(window);

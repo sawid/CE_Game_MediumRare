@@ -36,7 +36,7 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 				{
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && buttonID == *nextObjectRequest)
 					{
-						std::cout << "KeyPress Space " << *buttonStatus << std::endl;
+						std::cout << "ButtonStatus " << *buttonStatus << std::endl;
 						if (buttonID == 0 || buttonID == 6)
 						{
 							*buttonStatus += 1.0f;
@@ -81,7 +81,7 @@ bool Collider::CheckCollision(Collider& other, float push, float type, float* bu
 				{
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && buttonID == *nextObjectRequest)
 					{
-						std::cout << "KeyPress Space " << *buttonStatus << std::endl;
+						std::cout << "ButtonStatus " << *buttonStatus << std::endl;
 						if (buttonID == 0 || buttonID == 6)
 						{
 							*buttonStatus += 1.0f;
