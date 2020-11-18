@@ -6,6 +6,7 @@
 #include "Platform.h";
 #include <sstream>
 #include <string>
+#include <math.h>
 
 int main()
 {
@@ -168,6 +169,7 @@ int main()
 	int stageTime = 121;
 	int endpageStatus = 0;
 	int stageCooldownTime;
+	int pauseTimeAddStatus = 1;
 
 
 	sf::Clock clock;
@@ -231,6 +233,16 @@ int main()
 	sf::Sprite stagePageDist3;
 	stagePageDist3.setTexture(stagePage3);
 	stagePageDist3.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	// Pause Menu
+	sf::Texture stagePagePause;
+	if (!stagePagePause.loadFromFile("Asset/Image/Pause_Page.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+	sf::Sprite stagePageDistPause;
+	stagePageDistPause.setTexture(stagePagePause);
+	stagePageDistPause.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
 	//////////
 
@@ -394,6 +406,15 @@ int main()
 
 	// Delay System
 	sf::Time delay = sf::seconds(0.1);
+	 
+	//Pause Timer System
+	int initalTimePause = 0;
+	int timerPause = 0;
+	sf::Clock clockTimerPause;
+	int pauseTime = 0;
+	int initialPauseStatus = 1;
+	sf::Time mainTimerPause;
+
 	// Speed Control System
 	
 
@@ -677,10 +698,14 @@ int main()
 		}
 		if (gameStateMachine == 2)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
-				std::cout << nextObjectRequest << std::endl;
-				std::cout << cooldownCounter << std::endl;
+				timerPause = clockTimerPause.restart().asSeconds();
+				gameStateMachine = 8;
+				pauseTimeAddStatus = 1; 
+				initialPauseStatus = 1;
+				/*std::cout << nextObjectRequest << std::endl;
+				std::cout << cooldownCounter << std::endl;*/
 			}
 			//Set Object type ID if 1 = Wall 2 = Interact 3 = Buff
 			//Sent CurrentObjectID //Return Object ID
@@ -715,6 +740,28 @@ int main()
 
 			}
 		}
+		if (gameStateMachine == 8)
+		{
+			if (initialPauseStatus == 1)
+			{
+				initalTimePause = timerPause;
+				initialPauseStatus = 0;
+			}
+			mainTimerPause = clockTimerPause.getElapsedTime();
+			pauseTime = (int)floor(initalTimePause - timerPause);
+			int printTime = (int)floor(mainTimerPause.asSeconds());
+			std::cout << printTime << std::endl;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+				
+					gameStateMachine = 2;
+					limitTime += printTime;
+					pauseTimeAddStatus = 0;
+					
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				window.close();
+			}
+		}
 		if (gameStateMachine == 4)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
@@ -727,7 +774,6 @@ int main()
 				else if (endpageStatus == 2)
 				{
 					gameStateMachine = 7;
-
 				}
 			}
 		}
@@ -780,6 +826,11 @@ int main()
 		case 7:
 			window.clear();
 			window.draw(stagePageDist3);
+			window.display();
+			break;
+		case 8:
+			window.clear();
+			window.draw(stagePageDistPause);
 			window.display();
 			break;
 		case 4:
