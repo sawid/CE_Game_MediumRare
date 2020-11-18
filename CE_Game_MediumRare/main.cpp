@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <math.h>
+#include <fstream>
 
 int main()
 {
@@ -170,6 +171,7 @@ int main()
 	int endpageStatus = 0;
 	int stageCooldownTime;
 	int pauseTimeAddStatus = 1;
+	int saveGameStatus = 1;
 
 
 	sf::Clock clock;
@@ -275,6 +277,16 @@ int main()
 	sf::Sprite stagePageDistEnd3;
 	stagePageDistEnd3.setTexture(stagePage3End);
 	stagePageDistEnd3.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePageEnding;
+	if (!stagePageEnding.loadFromFile("Asset/Image/End_Game_Page.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageDistEnding;
+	stagePageDistEnding.setTexture(stagePageEnding);
+	stagePageDistEnding.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
 	Menu menu(window.getSize().x, window.getSize().y);
 
@@ -777,6 +789,47 @@ int main()
 				}
 			}
 		}
+		if (endpageStatus == 3)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				gameStateMachine = 9;
+			}
+		}
+		if (gameStateMachine == 9)
+		{
+			if (saveGameStatus == 1)
+			{
+				int num;
+				int numstr;
+				std::string str;
+				std::string str2;
+				num = scoreDisplay;
+				str2 = playerInput;
+				std::ifstream myfile2;
+				std::string line;
+				std::string line2;
+				myfile2.open("Save.txt");
+				getline(myfile2, line);
+				getline(myfile2, line2);
+				std::cout << line2 << std::endl;
+				std::cout << line << '\n';
+				std::istringstream(line) >> numstr;
+				if (numstr < num)
+				{
+					std::cout << "True";
+					std::ofstream myfile3;
+					myfile3.open("Save.txt");
+					myfile3 << num << "\n";
+					myfile3 << str2;
+					myfile3.close();
+					saveGameStatus = 0;
+				}
+				myfile2.close();
+			}
+			
+
+		}
 		if (gameStateMachine == 5)
 		{
 			if (event.type == sf::Event::TextEntered)
@@ -831,6 +884,11 @@ int main()
 		case 8:
 			window.clear();
 			window.draw(stagePageDistPause);
+			window.display();
+			break;
+		case 9:
+			window.clear();
+			window.draw(stagePageDistEnding);
 			window.display();
 			break;
 		case 4:
