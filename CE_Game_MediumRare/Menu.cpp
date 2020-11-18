@@ -19,7 +19,7 @@ Menu::Menu(float width, float height)
 	menu[1].setFont(font);
 	menu[1].setCharacterSize(50);
 	menu[1].setColor(sf::Color::Color(255, 193, 54));
-	menu[1].setString("Leader Board");
+	menu[1].setString("HighScore");
 	menu[1].setPosition(sf::Vector2f(143, 10));
 
 	menu[2].setFont(font);
