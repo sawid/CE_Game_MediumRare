@@ -801,31 +801,52 @@ int main()
 			if (saveGameStatus == 1)
 			{
 				int num;
+				std::ifstream file_("Save.txt");
+				std::string highscore;
+				int i = 0;
 				int numstr;
-				std::string str;
-				std::string str2;
+				int score[5];
 				num = scoreDisplay;
-				str2 = playerInput;
-				std::ifstream myfile2;
-				std::string line;
-				std::string line2;
-				myfile2.open("Save.txt");
-				getline(myfile2, line);
-				getline(myfile2, line2);
-				std::cout << line2 << std::endl;
-				std::cout << line << '\n';
-				std::istringstream(line) >> numstr;
-				if (numstr < num)
+				if (file_.is_open())
 				{
-					std::cout << "True";
-					std::ofstream myfile3;
-					myfile3.open("Save.txt");
-					myfile3 << num << "\n";
-					myfile3 << str2;
-					myfile3.close();
-					saveGameStatus = 0;
+					while (file_ >> highscore)
+					{
+						numstr = atoi(highscore.c_str());
+						score[i] = numstr;
+						i++;
+					}
+					file_.close();
+
 				}
-				myfile2.close();
+				int posPoint;
+				int joint;
+				for (joint = 0; joint < 5; joint++)
+				{
+					if (num > score[joint])
+					{
+						posPoint = joint;
+						break;
+					}
+				}
+				int size = 5, index = joint;
+				int tempI = size - 1; // Not i=size (this is the size of the array not the last index)
+				while (tempI > index) {
+					score[tempI] = score[tempI - 1];
+					tempI--;
+				}
+				score[tempI] = num;
+				std::ofstream myfile;
+				myfile.open("Save.txt");
+				for (int m = 0; m < 5; m++)
+				{
+					myfile << score[m];
+					if (m != 4)
+					{
+						myfile << "\n";
+					}
+				}
+				myfile.close();
+				saveGameStatus = 0;
 			}
 			
 
