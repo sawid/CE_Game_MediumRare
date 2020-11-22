@@ -479,6 +479,21 @@ int main()
 	HighScore5.setString("0");
 	HighScore5.setPosition(sf::Vector2f(370, 560));
 
+	// End Page Title
+	sf::Text EndPagePlayerName;
+	EndPagePlayerName.setFont(scoreboardFont);
+	EndPagePlayerName.setCharacterSize(200);
+	EndPagePlayerName.setColor(sf::Color::Black);
+	EndPagePlayerName.setString("0");
+	EndPagePlayerName.setPosition(sf::Vector2f(370, 280));
+
+	sf::Text EndPageFinalScore;
+	EndPageFinalScore.setFont(scoreboardFont);
+	EndPageFinalScore.setCharacterSize(150);
+	EndPageFinalScore.setColor(sf::Color::Black);
+	EndPageFinalScore.setString("0");
+	EndPageFinalScore.setPosition(sf::Vector2f(830, 520));
+
 	while (window.isOpen())
 	{
 		int effectObjectIDPic = receiptList[currentMenu][nextObjectRequest];
@@ -769,6 +784,12 @@ int main()
 				/*std::cout << nextObjectRequest << std::endl;
 				std::cout << cooldownCounter << std::endl;*/
 			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+			{
+				gameStateMachine = 9;
+				/*std::cout << nextObjectRequest << std::endl;
+				std::cout << cooldownCounter << std::endl;*/
+			}
 			//Set Object type ID if 1 = Wall 2 = Interact 3 = Buff
 			//Sent CurrentObjectID //Return Object ID
 		}
@@ -872,6 +893,8 @@ int main()
 		}
 		if (gameStateMachine == 9)
 		{
+			EndPagePlayerName.setString(playerInput);
+			EndPageFinalScore.setString(std::to_string(scoreDisplay));
 			if (saveGameStatus == 1)
 			{
 				int num;
@@ -984,6 +1007,8 @@ int main()
 		case 9:
 			window.clear();
 			window.draw(stagePageDistEnding);
+			window.draw(EndPagePlayerName);
+			window.draw(EndPageFinalScore);
 			window.display();
 			break;
 		case 10:
