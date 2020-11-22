@@ -11,12 +11,14 @@
 
 int main()
 {
+
 	srand(static_cast<unsigned int>(time(nullptr)));
 	// General Variable
 	int gameStateMachine = 1;
 	int animationFrame = 0;
 	int BDishStatus[10] = { 1,1,1,1,1,1,1,1,1,1 };
 	int BEggStatus[10] = { 1,1,1,1,1,1,1,1,1,1 };
+	int highscoreSet[5];
 	std::string ingredient[27] = { "Raw Chicken","Raw Porkchop","Papaya","Raw Shrimp","Raw Chicken","Vegetable","Chrispy Porkchop","Dough","Noodle Pasta"
 		,"Sliced Raw Chicken","Krapao Gai","Sliced Raw Porkchop","Ko Moo Yang","Sliced Papaya","Som Tum","Cooked Shrimp","Tom Yum Kung","Grinded Raw Chicken","Gai Tom Nam Pla"
 		,"Cleaned Vegetable","Salad","Grinded Chrispy Porkchop","Krapao Mookob","Sliced Dough","Pizza","Grinded Noodle Pasta","Spaghetti"};
@@ -290,6 +292,18 @@ int main()
 
 	Menu menu(window.getSize().x, window.getSize().y);
 
+
+	sf::Texture stagePageHighScore;
+	if (!stagePageHighScore.loadFromFile("Asset/Image/Leader_Page.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageDistHighScore;
+	stagePageDistHighScore.setTexture(stagePageHighScore);
+	stagePageDistHighScore.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+
 	////// Scoreboard
 
 	sf::Font scoreboardFont;
@@ -428,7 +442,42 @@ int main()
 	sf::Time mainTimerPause;
 
 	// Speed Control System
-	
+
+	// HighScoreBoard System
+	sf::Text HighScore1;
+	HighScore1.setFont(scoreboardFont);
+	HighScore1.setCharacterSize(100);
+	HighScore1.setColor(sf::Color::Black);
+	HighScore1.setString("0");
+	HighScore1.setPosition(sf::Vector2f(370,160));
+
+	sf::Text HighScore2;
+	HighScore2.setFont(scoreboardFont);
+	HighScore2.setCharacterSize(100);
+	HighScore2.setColor(sf::Color::Black);
+	HighScore2.setString("0");
+	HighScore2.setPosition(sf::Vector2f(370, 260));
+
+	sf::Text HighScore3;
+	HighScore3.setFont(scoreboardFont);
+	HighScore3.setCharacterSize(100);
+	HighScore3.setColor(sf::Color::Black);
+	HighScore3.setString("0");
+	HighScore3.setPosition(sf::Vector2f(370, 360));
+
+	sf::Text HighScore4;
+	HighScore4.setFont(scoreboardFont);
+	HighScore4.setCharacterSize(100);
+	HighScore4.setColor(sf::Color::Black);
+	HighScore4.setString("0");
+	HighScore4.setPosition(sf::Vector2f(370, 460));
+
+	sf::Text HighScore5;
+	HighScore5.setFont(scoreboardFont);
+	HighScore5.setCharacterSize(100);
+	HighScore5.setColor(sf::Color::Black);
+	HighScore5.setString("0");
+	HighScore5.setPosition(sf::Vector2f(370, 560));
 
 	while (window.isOpen())
 	{
@@ -685,6 +734,7 @@ int main()
 							break;
 						case 1:
 							std::cout << "OptionButton" << std::endl;
+							gameStateMachine = 10;
 							break;
 						case 2:
 							window.close();
@@ -773,6 +823,30 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
 				window.close();
 			}
+		}
+		if (gameStateMachine == 10)
+		{
+			std::ifstream file_2("Save.txt");
+			std::string highscoreShow;
+			int iRun = 0;
+			int numstrTemp;
+			if (file_2.is_open())
+			{
+				while (file_2 >> highscoreShow)
+				{
+					numstrTemp = atoi(highscoreShow.c_str());
+					highscoreSet[iRun] = numstrTemp;
+					iRun++;
+				}
+				file_2.close();
+
+			}
+			HighScore1.setString(std::to_string(highscoreSet[0]));
+			HighScore2.setString(std::to_string(highscoreSet[1]));
+			HighScore3.setString(std::to_string(highscoreSet[2]));
+			HighScore4.setString(std::to_string(highscoreSet[3]));
+			HighScore5.setString(std::to_string(highscoreSet[4]));
+
 		}
 		if (gameStateMachine == 4)
 		{
@@ -910,6 +984,16 @@ int main()
 		case 9:
 			window.clear();
 			window.draw(stagePageDistEnding);
+			window.display();
+			break;
+		case 10:
+			window.clear();
+			window.draw(stagePageDistHighScore);
+			window.draw(HighScore1);
+			window.draw(HighScore2);
+			window.draw(HighScore3);
+			window.draw(HighScore4);
+			window.draw(HighScore5);
 			window.display();
 			break;
 		case 4:
