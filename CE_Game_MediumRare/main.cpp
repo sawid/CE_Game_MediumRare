@@ -509,7 +509,7 @@ int main()
 	while (window.isOpen())
 	{
 		int effectObjectIDPic = receiptList[currentMenu][nextObjectRequest];
-		int effectObjectIDPic2 = effectObjectIDPic + 1;
+		int effectObjectIDPic2 = receiptList[currentMenu][nextObjectRequest+1];
 		if (effectObjectIDPic2 == 7)
 		{
 			//Assign Variable to 1:1 Data Connective
