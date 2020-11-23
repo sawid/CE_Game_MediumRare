@@ -366,6 +366,7 @@ int main()
 	foodName.setString("Null");
 	foodName.setPosition(sf::Vector2f(1020, 50));
 
+
 	// Equipment Indicator System
 
 	sf::Text indicatorTitle;
@@ -385,6 +386,17 @@ int main()
 	indicator.setTexture(indicatorTexture);
 	indicator.setTextureRect(sf::IntRect(0, 0, 140, 140));
 	indicator.setPosition(sf::Vector2f(1020, 350));
+
+	sf::Texture indicatorTexture2;
+	if (!indicatorTexture2.loadFromFile("Asset/Image/None.png"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite indicator2;
+	indicator2.setTexture(indicatorTexture2);
+	indicator2.setTextureRect(sf::IntRect(0, 0, 140, 140));
+	indicator2.setPosition(sf::Vector2f(1020, 470));
 
 	////// Timer System
 
@@ -497,6 +509,11 @@ int main()
 	while (window.isOpen())
 	{
 		int effectObjectIDPic = receiptList[currentMenu][nextObjectRequest];
+		int effectObjectIDPic2 = effectObjectIDPic + 1;
+		if (effectObjectIDPic2 == 7)
+		{
+			effectObjectIDPic2 = 0;
+		}
 		switch (effectObjectIDPic)
 		{
 		case 0:
@@ -519,6 +536,30 @@ int main()
 			break;
 		case 6:
 			indicator.setTexture(objectDeliver);
+			break;
+		}
+		switch (effectObjectIDPic2)
+		{
+		case 0:
+			indicator2.setTexture(objectRefri);
+			break;
+		case 1:
+			indicator2.setTexture(objectOven);
+			break;
+		case 2:
+			indicator2.setTexture(objectBasin);
+			break;
+		case 3:
+			indicator2.setTexture(objectGrinder);
+			break;
+		case 4:
+			indicator2.setTexture(objectFryer);
+			break;
+		case 5:
+			indicator2.setTexture(objectSlicer);
+			break;
+		case 6:
+			indicator2.setTexture(objectDeliver);
 			break;
 		}
 		if (buttonStatus == 4.0f)
@@ -1152,6 +1193,7 @@ int main()
 			window.draw(foodNameTitle);
 			window.draw(foodName);
 			window.draw(indicator);
+			window.draw(indicator2);
 			window.draw(indicatorTitle);
 			window.display();
 			break;
