@@ -512,6 +512,7 @@ int main()
 		int effectObjectIDPic2 = effectObjectIDPic + 1;
 		if (effectObjectIDPic2 == 7)
 		{
+			//Assign Variable to 1:1 Data Connective
 			effectObjectIDPic2 = 0;
 		}
 		switch (effectObjectIDPic)
