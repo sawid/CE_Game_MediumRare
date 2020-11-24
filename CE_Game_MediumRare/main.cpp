@@ -58,49 +58,53 @@ int main()
 	sf::Sound soundStove;
 	soundStove.setBuffer(soundBufferStove);
 
-	sf::Music soundBasin;
-	if (!soundBasin.openFromFile("Asset/Sound/Convert/Basin.ogg"))
+	sf::SoundBuffer soundBufferBasin;
+	if (!soundBufferBasin.loadFromFile("Asset/Sound/Basin.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundBasin.setVolume(30);
+	sf::Sound soundBasin;
+	soundBasin.setBuffer(soundBufferBasin);
 
-	sf::Music soundDeliver;
-	if (!soundDeliver.openFromFile("Asset/Sound/Convert/Deliver.ogg"))
+	sf::SoundBuffer soundBufferDeliver;
+	if (!soundBufferDeliver.loadFromFile("Asset/Sound/Deliver.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundDeliver.setVolume(30);
+	sf::Sound soundDeliver;
+	soundDeliver.setBuffer(soundBufferDeliver);
 
-	sf::Music soundFryer;
-	if (!soundFryer.openFromFile("Asset/Sound/Convert/Fryer.ogg"))
+	sf::SoundBuffer soundBufferFryer;
+	if (!soundBufferFryer.loadFromFile("Asset/Sound/Fryer.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundFryer.setVolume(30);
+	sf::Sound soundFryer;
+	soundFryer.setBuffer(soundBufferFryer);
 
-	sf::Music soundGrinder;
-	if (!soundGrinder.openFromFile("Asset/Sound/Convert/Grinder.ogg"))
+	sf::SoundBuffer soundBufferGrinder;
+	if (!soundBufferGrinder.loadFromFile("Asset/Sound/Grinder.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundGrinder.setVolume(30);
+	sf::Sound soundGrinder;
+	soundGrinder.setBuffer(soundBufferGrinder);
 
-	sf::Music soundRefri;
-	if (!soundRefri.openFromFile("Asset/Sound/Convert/Refri.ogg"))
+	sf::SoundBuffer soundBufferRefri;
+	if (!soundBufferRefri.loadFromFile("Asset/Sound/Refri.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundRefri.setVolume(30);
+	sf::Sound soundRefri;
+	soundRefri.setBuffer(soundBufferRefri);
 
-	sf::Music soundSlicer;
-	if (!soundSlicer.openFromFile("Asset/Sound/Convert/Slicer.ogg"))
+	sf::SoundBuffer soundBufferSlicer;
+	if (!soundBufferSlicer.loadFromFile("Asset/Sound/Slicer.wav"))
 	{
 		std::cout << "Load Music failed" << std::endl;
 	}
-	soundSlicer.setVolume(30);
-
-
+	sf::Sound soundSlicer;
+	soundSlicer.setBuffer(soundBufferSlicer);
 
 	////// TitleTexture Sprite
 	sf::Sprite shapeSprite;
@@ -228,6 +232,8 @@ int main()
 	int pauseTimeAddStatus = 1;
 	int saveGameStatus = 1;
 	int soundLimit = 1;
+	int soundLimit2 = 1;
+	int soundLimit3 = 1;
 
 
 	sf::Clock clock;
@@ -619,6 +625,11 @@ int main()
 		}
 		if (buttonStatus == 4.0f)
 		{
+			if (soundLimit3 == 1)
+			{
+				soundDeliver.play();
+				soundLimit3 = 0;
+			}
 			if (currentMenu == 7)
 			{
 				scoreDisplay += 500;
@@ -627,11 +638,17 @@ int main()
 			currentMenu = rand() % 9;
 			buttonStatus = 0.0f;
 			nextObjectRequest = 0;
-			
+			soundLimit2 = 1;
 			scoreDisplay += 1000;
+			soundLimit3 = 1;
 		}
 		if (buttonStatus == 1.0f)
 		{
+			if (soundLimit2 == 1)
+			{
+				soundRefri.play();
+				soundLimit2 = 0;
+			}
 			nextObjectRequest = 1;
 		}
 		else if (buttonStatus == 2.0f)
@@ -702,19 +719,35 @@ int main()
 					break;
 				case 3:
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder_Active.png");
-					soundGrinder.play();
+					if (soundLimit == 1)
+					{
+						soundGrinder.play();
+						soundLimit = 0;
+					}
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer_Active.png");
-					soundFryer.play();
+					if (soundLimit == 1)
+					{
+						soundFryer.play();
+						soundLimit = 0;
+					}
 					break;
 				case 2:
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin_Active.png");
-					soundBasin.play();
+					if (soundLimit == 1)
+					{
+						soundBasin.play();
+						soundLimit = 0;
+					}
 					break;
 				case 5:
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer_Active.png");
-					soundSlicer.play();
+					if (soundLimit == 1)
+					{
+						soundSlicer.play();
+						soundLimit = 0;
+					}
 					break;
 				}
 				
@@ -734,18 +767,22 @@ int main()
 				case 3:
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
 					soundGrinder.stop();
+					soundLimit = 1;
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
 					soundFryer.stop();
+					soundLimit = 1;
 					break;
 				case 2:
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
 					soundBasin.stop();
+					soundLimit = 1;
 					break;
 				case 5:
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
 					soundSlicer.stop();
+					soundLimit = 1;
 					break;
 				}
 			}
