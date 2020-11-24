@@ -47,7 +47,60 @@ int main()
 		std::cout << "Load Music failed" << std::endl;
 	}
 	bgMusic.setVolume(30);
-	//bgMusic.play();
+	bgMusic.play();
+
+	////// Sound Effect
+	sf::SoundBuffer soundBufferStove;
+	if (!soundBufferStove.loadFromFile("Asset/Sound/Stove.wav"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	sf::Sound soundStove;
+	soundStove.setBuffer(soundBufferStove);
+
+	sf::Music soundBasin;
+	if (!soundBasin.openFromFile("Asset/Sound/Convert/Basin.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundBasin.setVolume(30);
+
+	sf::Music soundDeliver;
+	if (!soundDeliver.openFromFile("Asset/Sound/Convert/Deliver.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundDeliver.setVolume(30);
+
+	sf::Music soundFryer;
+	if (!soundFryer.openFromFile("Asset/Sound/Convert/Fryer.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundFryer.setVolume(30);
+
+	sf::Music soundGrinder;
+	if (!soundGrinder.openFromFile("Asset/Sound/Convert/Grinder.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundGrinder.setVolume(30);
+
+	sf::Music soundRefri;
+	if (!soundRefri.openFromFile("Asset/Sound/Convert/Refri.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundRefri.setVolume(30);
+
+	sf::Music soundSlicer;
+	if (!soundSlicer.openFromFile("Asset/Sound/Convert/Slicer.ogg"))
+	{
+		std::cout << "Load Music failed" << std::endl;
+	}
+	soundSlicer.setVolume(30);
+
+
 
 	////// TitleTexture Sprite
 	sf::Sprite shapeSprite;
@@ -174,6 +227,7 @@ int main()
 	int stageCooldownTime;
 	int pauseTimeAddStatus = 1;
 	int saveGameStatus = 1;
+	int soundLimit = 1;
 
 
 	sf::Clock clock;
@@ -640,18 +694,27 @@ int main()
 				{
 				case 1:
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove_Active.png");
+					if (soundLimit == 1)
+					{
+						soundStove.play();
+						soundLimit = 0;
+					}
 					break;
 				case 3:
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder_Active.png");
+					soundGrinder.play();
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer_Active.png");
+					soundFryer.play();
 					break;
 				case 2:
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin_Active.png");
+					soundBasin.play();
 					break;
 				case 5:
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer_Active.png");
+					soundSlicer.play();
 					break;
 				}
 				
@@ -665,18 +728,24 @@ int main()
 				{
 				case 1:
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+					soundStove.stop();
+					soundLimit = 1;
 					break;
 				case 3:
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
+					soundGrinder.stop();
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+					soundFryer.stop();
 					break;
 				case 2:
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
+					soundBasin.stop();
 					break;
 				case 5:
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
+					soundSlicer.stop();
 					break;
 				}
 			}
@@ -889,6 +958,10 @@ int main()
 		}
 		if (gameStateMachine == 10)
 		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				gameStateMachine = 1;
+			}
 			std::ifstream file_2("Save.txt");
 			std::string highscoreShow;
 			int iRun = 0;
