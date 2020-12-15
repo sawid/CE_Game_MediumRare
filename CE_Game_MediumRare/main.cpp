@@ -26,6 +26,14 @@ int main()
 	std::string objectName[7] = { "Refrigerator","Oven","Cooking Basin","Grinder","Fryer Machine","Slicer","Delivery Point" };
 	float receiptList[9][4] = { { 0,5,4,6 },{ 0,5,1,6 },{ 0,5,2,6 },{ 0,2,4,6 },{ 0,3,1,6 },{ 0,2,3,6 },{ 0,3,4,6 },{ 0,5,1,6 },{ 0,3,1,6 } };
 	int receiptNameList[9][3] = { { 0,9,10 },{ 1,11,12 },{ 2,13,14 },{ 3,15,16 },{ 4,17,18 },{ 5,19,20 },{ 6,21,22 },{ 7,23,24 },{ 8,25,26 } };
+	float BPosition[24];
+
+	for (int low = 0; low < 24; low++)
+	{
+		float randnum1 = (rand() % 500) + 300;
+		BPosition[low] = randnum1;
+	}
+
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "MediumRare!");
 
 	////// TitleTexture
@@ -199,23 +207,23 @@ int main()
 	Platform platformBasin(&objectBasin, sf::Vector2f(136.0f, 136.0f), sf::Vector2f(915.0f, 285.0f));
 	Platform platformGrinder(&objectGrinder, sf::Vector2f(86.0f, 86.0f), sf::Vector2f(915.0f, 555.0f));
 
-	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(555.0f, 400.0f));
-	Platform platformBDish2(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(705.0f, 450.0f));
+	Platform platformBDish(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[0], BPosition[1]));
+	Platform platformBDish2(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[2], BPosition[3]));
 
-	Platform platformBDish3(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(505.0f, 600.0f));
-	Platform platformBDish4(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(805.0f, 400.0f));
-	Platform platformBDish5(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(605.0f, 250.0f));
+	Platform platformBDish3(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[4], BPosition[5]));
+	Platform platformBDish4(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[6], BPosition[7]));
+	Platform platformBDish5(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[8], BPosition[9]));
 
-	Platform platformBDish6(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(405.0f, 200.0f));
-	Platform platformBDish7(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(605.0f, 500.0f));
-	Platform platformBDish8(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(855.0f, 650.0f));
+	Platform platformBDish6(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[10], BPosition[11]));
+	Platform platformBDish7(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[12], BPosition[13]));
+	Platform platformBDish8(&objectBDish, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[14], BPosition[15]));
 
-	Platform platformBEgg1(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(500.0f, 150.0f));
+	Platform platformBEgg1(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[16], BPosition[17]));
 
-	Platform platformBEgg2(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(600.0f, 550.0f));
+	Platform platformBEgg2(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[18], BPosition[19]));
 
-	Platform platformBEgg3(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(500.0f, 350.0f));
-	Platform platformBEgg4(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(300.0f, 450.0f));
+	Platform platformBEgg3(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[20], BPosition[21]));
+	Platform platformBEgg4(&objectBEgg, sf::Vector2f(43.0f, 43.0f), sf::Vector2f(BPosition[22], BPosition[23]));
 
 
 	// Edge Background
