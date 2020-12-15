@@ -40,33 +40,39 @@ int main()
 	sf::Texture TitleTexture;
 	if (!TitleTexture.loadFromFile("Asset/Image/Game_Title.jpg"))
 	{
+		std::cout << "TitleTexture";
 		std::cout << "Load Title failed" << std::endl;
 	}
 	////// Map BG Texture
 	sf::Texture BgTexture;
 	if (!BgTexture.loadFromFile("Asset/Image/Game-Map.jpg"))
 	{
+		std::cout << "BgTexture";
 		std::cout << "Load Title failed" << std::endl;
 	}
 	sf::Texture SideLeft;
 	if (!SideLeft.loadFromFile("Asset/Image/Game-Map-Side_Left.jpg"))
 	{
+		std::cout << "SideLeft";
 		std::cout << "Load Title failed" << std::endl;
 	}
 	sf::Texture SideRight;
 	if (!SideRight.loadFromFile("Asset/Image/Game-Map-Side_Right.jpg"))
 	{
+		std::cout << "SideRight";
 		std::cout << "Load Title failed" << std::endl;
 	}
 	sf::Texture SideTransparent;
 	if (!SideTransparent.loadFromFile("Asset/Image/Game-Map-Side_Transparent.png"))
 	{
+		std::cout << "SideTransparent";
 		std::cout << "Load Title failed" << std::endl;
 	}
 	////// BG Music
 	sf::Music bgMusic;
 	if (!bgMusic.openFromFile("Asset/Sound/BG_Music.ogg"))
 	{	
+		std::cout << "bgMusic";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	bgMusic.setVolume(30);
@@ -76,6 +82,7 @@ int main()
 	sf::SoundBuffer soundBufferStove;
 	if (!soundBufferStove.loadFromFile("Asset/Sound/Stove.wav"))
 	{
+		std::cout << "soundBufferStove";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundStove;
@@ -84,6 +91,7 @@ int main()
 	sf::SoundBuffer soundBufferBasin;
 	if (!soundBufferBasin.loadFromFile("Asset/Sound/Basin.wav"))
 	{
+		std::cout << "soundBufferBasin";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundBasin;
@@ -92,6 +100,7 @@ int main()
 	sf::SoundBuffer soundBufferDeliver;
 	if (!soundBufferDeliver.loadFromFile("Asset/Sound/Deliver.wav"))
 	{
+		std::cout << "soundBufferDeliver";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundDeliver;
@@ -100,6 +109,7 @@ int main()
 	sf::SoundBuffer soundBufferFryer;
 	if (!soundBufferFryer.loadFromFile("Asset/Sound/Fryer.wav"))
 	{
+		std::cout << "soundBufferFryer";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundFryer;
@@ -108,6 +118,7 @@ int main()
 	sf::SoundBuffer soundBufferGrinder;
 	if (!soundBufferGrinder.loadFromFile("Asset/Sound/Grinder.wav"))
 	{
+		std::cout << "soundBufferGrinder";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundGrinder;
@@ -116,6 +127,7 @@ int main()
 	sf::SoundBuffer soundBufferRefri;
 	if (!soundBufferRefri.loadFromFile("Asset/Sound/Refri.wav"))
 	{
+		std::cout << "soundBufferRefri";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundRefri;
@@ -124,6 +136,7 @@ int main()
 	sf::SoundBuffer soundBufferSlicer;
 	if (!soundBufferSlicer.loadFromFile("Asset/Sound/Slicer.wav"))
 	{
+		std::cout << "soundBufferSlicer";
 		std::cout << "Load Music failed" << std::endl;
 	}
 	sf::Sound soundSlicer;
@@ -143,6 +156,7 @@ int main()
 	sf::Texture playerTexture;
 	if (!playerTexture.loadFromFile("Asset/Image/Character.png"))
 	{
+		std::cout << "playerTexture";
 		std::cout << "Load failed" << std::endl;
 	}
 	
@@ -150,46 +164,55 @@ int main()
 	sf::Texture objectOven;
 	if (!objectOven.loadFromFile("Asset/Image/Object_1_Stove.png"))
 	{
+		std::cout << "objectOven";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectRefri;
 	if (!objectRefri.loadFromFile("Asset/Image/Object_2_Refri.png"))
 	{
+		std::cout << "objectRefri";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectFryer;
 	if (!objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png"))
 	{
+		std::cout << "objectFryer";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectGrinder;
 	if (!objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png"))
 	{
+		std::cout << "objectGrinder";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectBasin;
 	if (!objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png"))
 	{
+		std::cout << "objectBasin";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectSlicer;
 	if (!objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png"))
 	{
+		std::cout << "objectSlicer";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectDeliver;
 	if (!objectDeliver.loadFromFile("Asset/Image/Object_7_Deliver.png"))
 	{
+		std::cout << "objectDeliver";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectBEgg;
 	if (!objectBEgg.loadFromFile("Asset/Image/Object_BEgg.png"))
 	{
+		std::cout << "objectBEgg";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Texture objectBDish;
 	if (!objectBDish.loadFromFile("Asset/Image/Object_BDish.png"))
 	{
+		std::cout << "objectBDish";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -277,12 +300,14 @@ int main()
 	sf::Font inputNameFont;
 	if (!inputNameFont.loadFromFile("DB.ttf"))
 	{
+		std::cout << "inputNameFont";
 		std::cout << "Load Font Scoreboard failed" << std::endl;
 	}
 	
 	sf::Texture stageName;
 	if (!stageName.loadFromFile("Asset/Image/Stage_Page_Name.jpg"))
 	{
+		std::cout << "stageName";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Sprite stagePageName;
@@ -299,6 +324,7 @@ int main()
 	sf::Texture stagePage1;
 	if (!stagePage1.loadFromFile("Asset/Image/Stage_Page_1.jpg"))
 	{
+		std::cout << "stagePage1";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Sprite stagePageDist1;
@@ -308,6 +334,7 @@ int main()
 	sf::Texture stagePage2;
 	if (!stagePage2.loadFromFile("Asset/Image/Stage_Page_2.jpg"))
 	{
+		std::cout << "stagePage2";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Sprite stagePageDist2;
@@ -317,6 +344,7 @@ int main()
 	sf::Texture stagePage3;
 	if (!stagePage3.loadFromFile("Asset/Image/Stage_Page_3.jpg"))
 	{
+		std::cout << "stagePage3";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Sprite stagePageDist3;
@@ -327,6 +355,7 @@ int main()
 	sf::Texture stagePagePause;
 	if (!stagePagePause.loadFromFile("Asset/Image/Pause_Page.jpg"))
 	{
+		std::cout << "stagePagePause";
 		std::cout << "Load failed" << std::endl;
 	}
 	sf::Sprite stagePageDistPause;
@@ -338,6 +367,7 @@ int main()
 	sf::Texture stagePage1End;
 	if (!stagePage1End.loadFromFile("Asset/Image/Stage_Page_1_End.jpg"))
 	{
+		std::cout << "stagePage1End";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -348,6 +378,7 @@ int main()
 	sf::Texture stagePage2End;
 	if (!stagePage2End.loadFromFile("Asset/Image/Stage_Page_2_End.jpg"))
 	{
+		std::cout << "stagePage2End";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -358,6 +389,7 @@ int main()
 	sf::Texture stagePage3End;
 	if (!stagePage3End.loadFromFile("Asset/Image/Stage_Page_3_End.jpg"))
 	{
+		std::cout << "stagePage3End";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -368,6 +400,7 @@ int main()
 	sf::Texture stagePageEnding;
 	if (!stagePageEnding.loadFromFile("Asset/Image/End_Game_Page.jpg"))
 	{
+		std::cout << "stagePageEnding";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -381,6 +414,7 @@ int main()
 	sf::Texture stagePageHighScore;
 	if (!stagePageHighScore.loadFromFile("Asset/Image/Leader_Page.jpg"))
 	{
+		std::cout << "stagePageHighScore";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -391,6 +425,7 @@ int main()
 	sf::Texture stagePageTutotial1;
 	if (!stagePageTutotial1.loadFromFile("Asset/Image/Tutorial1.jpg"))
 	{
+		std::cout << "stagePageTutotial1";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -401,6 +436,7 @@ int main()
 	sf::Texture stagePageTutotial2;
 	if (!stagePageTutotial2.loadFromFile("Asset/Image/Tutorial2.jpg"))
 	{
+		std::cout << "stagePageTutotial2";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -411,6 +447,7 @@ int main()
 	sf::Texture stagePageTutotial3;
 	if (!stagePageTutotial3.loadFromFile("Asset/Image/Tutorial3.jpg"))
 	{
+		std::cout << "stagePageTutotial3";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -423,6 +460,7 @@ int main()
 	sf::Font scoreboardFont;
 	if (!scoreboardFont.loadFromFile("Sriracha.ttf"))
 	{
+		std::cout << "scoreboardFont";
 		std::cout << "Load Font Scoreboard failed" << std::endl;
 	}
 
@@ -493,6 +531,7 @@ int main()
 	sf::Texture indicatorTexture;
 	if (!indicatorTexture.loadFromFile("Asset/Image/None.png"))
 	{
+		std::cout << "indicatorTexture";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -504,6 +543,7 @@ int main()
 	sf::Texture indicatorTexture2;
 	if (!indicatorTexture2.loadFromFile("Asset/Image/None.png"))
 	{
+		std::cout << "indicatorTexture2";
 		std::cout << "Load failed" << std::endl;
 	}
 
@@ -568,6 +608,94 @@ int main()
 	sf::Time mainTimerPause;
 
 	// Speed Control System
+
+	/*
+	* float Timer = 0;
+	int limitTime = 90;
+	int intialTime = 1;
+	int distTime = 90;
+	sf::Time timerAsSec = sf::seconds(1000);
+	sf::Time timerDec = sf::seconds(1);
+	sf::Clock clockTimer;
+	sf::Text titleTimer;
+	titleTimer.setFont(scoreboardFont);
+	titleTimer.setCharacterSize(30);
+	titleTimer.setColor(sf::Color::White);
+	titleTimer.setString("Time Left");
+	titleTimer.setPosition(sf::Vector2f(70, 155));
+
+	sf::Text showTimer;
+	showTimer.setFont(scoreboardFont);
+	showTimer.setCharacterSize(80);
+	showTimer.setColor(sf::Color::White);
+	showTimer.setString("90");
+	showTimer.setPosition(sf::Vector2f(75, 190));
+
+	sf::Text titleCoolDown;
+	titleCoolDown.setFont(scoreboardFont);
+	titleCoolDown.setCharacterSize(30);
+	titleCoolDown.setColor(sf::Color::White);
+	titleCoolDown.setString("Cooldown");
+	titleCoolDown.setPosition(sf::Vector2f(70, 300));
+
+	sf::Text coolDownTimer;
+	coolDownTimer.setFont(scoreboardFont);
+	coolDownTimer.setCharacterSize(80);
+	coolDownTimer.setColor(sf::Color::White);
+	coolDownTimer.setString("0");
+	coolDownTimer.setPosition(sf::Vector2f(110, 335));
+	sf::Text HighScore1;
+	HighScore1.setFont(scoreboardFont);
+	HighScore1.setCharacterSize(100);
+	HighScore1.setColor(sf::Color::White);
+	HighScore1.setString("0");
+	HighScore1.setPosition(sf::Vector2f(370,160));
+
+	sf::Text HighScore2;
+	HighScore2.setFont(scoreboardFont);
+	HighScore2.setCharacterSize(100);
+	HighScore2.setColor(sf::Color::White);
+	HighScore2.setString("0");
+	HighScore2.setPosition(sf::Vector2f(370, 260));
+
+	sf::Text HighScore3;
+	HighScore3.setFont(scoreboardFont);
+	HighScore3.setCharacterSize(100);
+	HighScore3.setColor(sf::Color::White);
+	HighScore3.setString("0");
+	HighScore3.setPosition(sf::Vector2f(370, 360));
+
+	sf::Text HighScore4;
+	HighScore4.setFont(scoreboardFont);
+	HighScore4.setCharacterSize(100);
+	HighScore4.setColor(sf::Color::White);
+	HighScore4.setString("0");
+	HighScore4.setPosition(sf::Vector2f(370, 460));
+
+	sf::Text HighScore5;
+	HighScore5.setFont(scoreboardFont);
+	HighScore5.setCharacterSize(100);
+	HighScore5.setColor(sf::Color::White);
+	HighScore5.setString("0");
+	HighScore5.setPosition(sf::Vector2f(370, 560));
+
+	// End Page Title
+	sf::Text EndPagePlayerName;
+	EndPagePlayerName.setFont(scoreboardFont);
+	EndPagePlayerName.setCharacterSize(200);
+	EndPagePlayerName.setColor(sf::Color::White);
+	EndPagePlayerName.setString("0");
+	EndPagePlayerName.setPosition(sf::Vector2f(370, 280));
+
+	sf::Text EndPageFinalScore;
+	EndPageFinalScore.setFont(scoreboardFont);
+	EndPageFinalScore.setCharacterSize(150);
+	EndPageFinalScore.setColor(sf::Color::White);
+	EndPageFinalScore.setString("0");
+	EndPageFinalScore.setPosition(sf::Vector2f(830, 520));
+	
+	*/
+
 
 	// HighScoreBoard System
 	sf::Text HighScore1;
@@ -767,6 +895,7 @@ int main()
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove_Active.png");
 					if (soundLimit == 1)
 					{
+						std::cout << "Sound Played" << std::endl;
 						soundStove.play();
 						soundLimit = 0;
 					}
@@ -775,6 +904,7 @@ int main()
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder_Active.png");
 					if (soundLimit == 1)
 					{
+						std::cout << "Sound Played" << std::endl;
 						soundGrinder.play();
 						soundLimit = 0;
 					}
@@ -783,6 +913,7 @@ int main()
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer_Active.png");
 					if (soundLimit == 1)
 					{
+						std::cout << "Sound Played" << std::endl;
 						soundFryer.play();
 						soundLimit = 0;
 					}
@@ -791,6 +922,7 @@ int main()
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin_Active.png");
 					if (soundLimit == 1)
 					{
+						std::cout << "Sound Played" << std::endl;
 						soundBasin.play();
 						soundLimit = 0;
 					}
@@ -799,6 +931,7 @@ int main()
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer_Active.png");
 					if (soundLimit == 1)
 					{
+						std::cout << "Sound Played" << std::endl;
 						soundSlicer.play();
 						soundLimit = 0;
 					}
@@ -815,26 +948,31 @@ int main()
 				{
 				case 1:
 					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+					std::cout << "Sound Stoped" << std::endl;
 					soundStove.stop();
 					soundLimit = 1;
 					break;
 				case 3:
 					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
+					std::cout << "Sound Stoped" << std::endl;
 					soundGrinder.stop();
 					soundLimit = 1;
 					break;
 				case 4:
 					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+					std::cout << "Sound Stoped" << std::endl;
 					soundFryer.stop();
 					soundLimit = 1;
 					break;
 				case 2:
 					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
+					std::cout << "Sound Stoped" << std::endl;
 					soundBasin.stop();
 					soundLimit = 1;
 					break;
 				case 5:
 					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
+					std::cout << "Sound Stoped" << std::endl;
 					soundSlicer.stop();
 					soundLimit = 1;
 					break;
@@ -892,6 +1030,7 @@ int main()
 				soundBasin.stop();
 				objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
 				soundSlicer.stop();
+				std::cout << "Sound Stoped" << std::endl;
 				soundLimit = 1;
 				
 
@@ -966,7 +1105,7 @@ int main()
 
 							break;
 						case 1:
-							std::cout << "OptionButton" << std::endl;
+							std::cout << "HighScoreButton" << std::endl;
 							gameStateMachine = 10;
 							break;
 						case 2:
@@ -1006,6 +1145,7 @@ int main()
 			{
 				gameStateMachine = 9;
 				/*std::cout << nextObjectRequest << std::endl;
+				* std::cout << cooldownCounter << std::endl;
 				std::cout << cooldownCounter << std::endl;*/
 			}
 			//Set Object type ID if 1 = Wall 2 = Interact 3 = Buff
