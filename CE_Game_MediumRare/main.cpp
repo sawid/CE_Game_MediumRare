@@ -849,6 +849,37 @@ int main()
 				currentMenu = rand() % 9;
 				availbleButtonStatus = 1;
 				scoreStage.setString(std::to_string(endStageScore));
+
+				int effectObjectIDEnd = receiptList[currentMenu][nextObjectRequest + 1];
+				switch (effectObjectIDEnd)
+				{
+				case 1:
+					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+					soundStove.stop();
+					soundLimit = 1;
+					break;
+				case 3:
+					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
+					soundGrinder.stop();
+					soundLimit = 1;
+					break;
+				case 4:
+					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+					soundFryer.stop();
+					soundLimit = 1;
+					break;
+				case 2:
+					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
+					soundBasin.stop();
+					soundLimit = 1;
+					break;
+				case 5:
+					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
+					soundSlicer.stop();
+					soundLimit = 1;
+					break;
+				}
+
 			}
 			//std::cout << floor(distTime) << std::endl;
 			
