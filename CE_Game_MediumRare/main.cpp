@@ -257,6 +257,7 @@ int main()
 	int soundLimit = 1;
 	int soundLimit2 = 1;
 	int soundLimit3 = 1;
+	int stepTutorial = 1;
 
 
 	sf::Clock clock;
@@ -387,6 +388,35 @@ int main()
 	stagePageDistHighScore.setTexture(stagePageHighScore);
 	stagePageDistHighScore.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
+	sf::Texture stagePageTutotial1;
+	if (!stagePageTutotial1.loadFromFile("Asset/Image/Tutorial1.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageTutotial1Dist;
+	stagePageTutotial1Dist.setTexture(stagePageTutotial1);
+	stagePageTutotial1Dist.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePageTutotial2;
+	if (!stagePageTutotial2.loadFromFile("Asset/Image/Tutorial2.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageTutotial2Dist;
+	stagePageTutotial2Dist.setTexture(stagePageTutotial2);
+	stagePageTutotial2Dist.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+	sf::Texture stagePageTutotial3;
+	if (!stagePageTutotial3.loadFromFile("Asset/Image/Tutorial3.jpg"))
+	{
+		std::cout << "Load failed" << std::endl;
+	}
+
+	sf::Sprite stagePageTutotial3Dist;
+	stagePageTutotial3Dist.setTexture(stagePageTutotial3);
+	stagePageTutotial3Dist.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
 	////// Scoreboard
 
@@ -849,36 +879,21 @@ int main()
 				currentMenu = rand() % 9;
 				availbleButtonStatus = 1;
 				scoreStage.setString(std::to_string(endStageScore));
+				coolDownTimer.setString("0");
 
-				int effectObjectIDEnd = receiptList[currentMenu][nextObjectRequest + 1];
-				switch (effectObjectIDEnd)
-				{
-				case 1:
-					objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
-					soundStove.stop();
-					soundLimit = 1;
-					break;
-				case 3:
-					objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
-					soundGrinder.stop();
-					soundLimit = 1;
-					break;
-				case 4:
-					objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
-					soundFryer.stop();
-					soundLimit = 1;
-					break;
-				case 2:
-					objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
-					soundBasin.stop();
-					soundLimit = 1;
-					break;
-				case 5:
-					objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
-					soundSlicer.stop();
-					soundLimit = 1;
-					break;
-				}
+				
+				objectOven.loadFromFile("Asset/Image/Object_1_Stove.png");
+				soundStove.stop();
+				objectGrinder.loadFromFile("Asset/Image/Object_4_Grinder.png");
+				soundGrinder.stop();
+				objectFryer.loadFromFile("Asset/Image/Object_3_Fryer.png");
+				soundFryer.stop();
+				objectBasin.loadFromFile("Asset/Image/Object_5_Basin.png");
+				soundBasin.stop();
+				objectSlicer.loadFromFile("Asset/Image/Object_6_Slicer.png");
+				soundSlicer.stop();
+				soundLimit = 1;
+				
 
 			}
 			//std::cout << floor(distTime) << std::endl;
@@ -944,7 +959,7 @@ int main()
 						{
 						case 0:
 							std::cout << "PlayButton" << std::endl;
-							gameStateMachine = 5;
+							gameStateMachine = 11;
 							//shapeSpriteCharacter.setPosition({ 200.f, 200.f });
 
 							bgMusic.stop();
@@ -1075,6 +1090,23 @@ int main()
 			HighScore4.setString(std::to_string(highscoreSet[3]));
 			HighScore5.setString(std::to_string(highscoreSet[4]));
 
+		}
+		if (gameStateMachine == 11)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				if (stepTutorial == 1 || stepTutorial == 2)
+				{
+					stepTutorial++;
+					sf::sleep(delay);
+
+				}
+				else if (stepTutorial == 3)
+				{
+					gameStateMachine = 5;
+					sf::sleep(delay);
+				}
+			}
 		}
 		if (gameStateMachine == 4)
 		{
@@ -1226,6 +1258,22 @@ int main()
 			window.draw(HighScore3);
 			window.draw(HighScore4);
 			window.draw(HighScore5);
+			window.display();
+			break;
+		case 11:
+			window.clear();
+			if (stepTutorial == 1)
+			{
+				window.draw(stagePageTutotial1Dist);
+			}
+			else if (stepTutorial == 2)
+			{
+				window.draw(stagePageTutotial2Dist);
+			}
+			else if (stepTutorial == 3)
+			{
+				window.draw(stagePageTutotial3Dist);
+			}
 			window.display();
 			break;
 		case 4:
