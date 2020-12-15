@@ -421,7 +421,7 @@ int main()
 	scoreNow.setCharacterSize(80);
 	scoreNow.setColor(sf::Color::White);
 	scoreNow.setString("0000");
-	scoreNow.setPosition(sf::Vector2f(65, 45));
+	scoreNow.setPosition(sf::Vector2f(55, 45));
 
 	////// Food Menu System
 
