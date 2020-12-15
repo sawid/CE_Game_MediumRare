@@ -40,6 +40,21 @@ int main()
 	{
 		std::cout << "Load Title failed" << std::endl;
 	}
+	sf::Texture SideLeft;
+	if (!SideLeft.loadFromFile("Asset/Image/Game-Map-Side_Left.jpg"))
+	{
+		std::cout << "Load Title failed" << std::endl;
+	}
+	sf::Texture SideRight;
+	if (!SideRight.loadFromFile("Asset/Image/Game-Map-Side_Right.jpg"))
+	{
+		std::cout << "Load Title failed" << std::endl;
+	}
+	sf::Texture SideTransparent;
+	if (!SideTransparent.loadFromFile("Asset/Image/Game-Map-Side_Transparent.png"))
+	{
+		std::cout << "Load Title failed" << std::endl;
+	}
 	////// BG Music
 	sf::Music bgMusic;
 	if (!bgMusic.openFromFile("Asset/Sound/BG_Music.ogg"))
@@ -204,8 +219,8 @@ int main()
 
 
 	// Edge Background
-	Platform platformLeft(nullptr, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
-	Platform platformRight(nullptr, sf::Vector2f(200.0f, 1500.0f), sf::Vector2f(1105.0f, 0.0f));
+	Platform platformLeft(&SideTransparent, sf::Vector2f(400.0f, 1500.0f), sf::Vector2f(75.0f, 0.0f));
+	Platform platformRight(&SideTransparent, sf::Vector2f(200.0f, 1500.0f), sf::Vector2f(1105.0f, 0.0f));
 	Platform platformTop(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, -550.0f));
 	Platform platformBottom(nullptr, sf::Vector2f(1200.0f, 1100.0f), sf::Vector2f(505.0f, 1270.0f));
 
@@ -255,6 +270,7 @@ int main()
 	{
 		std::cout << "Load Font Scoreboard failed" << std::endl;
 	}
+	
 	sf::Texture stageName;
 	if (!stageName.loadFromFile("Asset/Image/Stage_Page_Name.jpg"))
 	{
@@ -367,7 +383,7 @@ int main()
 	////// Scoreboard
 
 	sf::Font scoreboardFont;
-	if (!scoreboardFont.loadFromFile("DB.ttf"))
+	if (!scoreboardFont.loadFromFile("Sriracha.ttf"))
 	{
 		std::cout << "Load Font Scoreboard failed" << std::endl;
 	}
@@ -383,10 +399,10 @@ int main()
 	// Scoreboard - Title
 	sf::Text scoreboard;
 	scoreboard.setFont(scoreboardFont);
-	scoreboard.setCharacterSize(50);
-	scoreboard.setColor(sf::Color::Black);
+	scoreboard.setCharacterSize(30);
+	scoreboard.setColor(sf::Color::White);
 	scoreboard.setString("ScoreNow");
-	scoreboard.setPosition(sf::Vector2f(20, 10));
+	scoreboard.setPosition(sf::Vector2f(65, 10));
 	// Scoreboard - ScoreNow
 	int scoreDisplay = 0000;
 	std::ostringstream scorePrintSS;
@@ -394,47 +410,47 @@ int main()
 	std::string scorePrintString(scorePrintSS.str());
 	sf::Text scoreNow;
 	scoreNow.setFont(scoreboardFont);
-	scoreNow.setCharacterSize(50);
-	scoreNow.setColor(sf::Color::Black);
-	scoreNow.setString("0");
-	scoreNow.setPosition(sf::Vector2f(20, 50));
+	scoreNow.setCharacterSize(80);
+	scoreNow.setColor(sf::Color::White);
+	scoreNow.setString("0000");
+	scoreNow.setPosition(sf::Vector2f(65, 45));
 
 	////// Food Menu System
 
 	float requiredInt = 0.0f;
 	sf::Text foodMenuTitle;
 	foodMenuTitle.setFont(scoreboardFont);
-	foodMenuTitle.setCharacterSize(50);
-	foodMenuTitle.setColor(sf::Color::Black);
-	foodMenuTitle.setString("Holding Ingre");
-	foodMenuTitle.setPosition(sf::Vector2f(1020, 140));
+	foodMenuTitle.setCharacterSize(30);
+	foodMenuTitle.setColor(sf::Color::White);
+	foodMenuTitle.setString("Status");
+	foodMenuTitle.setPosition(sf::Vector2f(1100, 155));
 	sf::Text requiredIntMenu;
 	requiredIntMenu.setFont(scoreboardFont);
-	requiredIntMenu.setCharacterSize(50);
-	requiredIntMenu.setColor(sf::Color::Black);
-	requiredIntMenu.setPosition(sf::Vector2f(1020, 190));
+	requiredIntMenu.setCharacterSize(30);
+	requiredIntMenu.setColor(sf::Color::White);
+	requiredIntMenu.setPosition(sf::Vector2f(1050, 225));
 	sf::Text foodNameTitle;
 	foodNameTitle.setFont(scoreboardFont);
-	foodNameTitle.setCharacterSize(50);
-	foodNameTitle.setColor(sf::Color::Black);
-	foodNameTitle.setString("Current Menu");
-	foodNameTitle.setPosition(sf::Vector2f(1020, 10));
+	foodNameTitle.setCharacterSize(30);
+	foodNameTitle.setColor(sf::Color::White);
+	foodNameTitle.setString("Menu");
+	foodNameTitle.setPosition(sf::Vector2f(1110, 10));
 	sf::Text foodName;
 	foodName.setFont(scoreboardFont);
-	foodName.setCharacterSize(50);
-	foodName.setColor(sf::Color::Black);
+	foodName.setCharacterSize(30);
+	foodName.setColor(sf::Color::White);
 	foodName.setString("Null");
-	foodName.setPosition(sf::Vector2f(1020, 50));
+	foodName.setPosition(sf::Vector2f(1050, 80));
 
 
 	// Equipment Indicator System
 
 	sf::Text indicatorTitle;
 	indicatorTitle.setFont(scoreboardFont);
-	indicatorTitle.setCharacterSize(50);
-	indicatorTitle.setColor(sf::Color::Black);
+	indicatorTitle.setCharacterSize(30);
+	indicatorTitle.setColor(sf::Color::White);
 	indicatorTitle.setString("Go to This");
-	indicatorTitle.setPosition(sf::Vector2f(1020, 270));
+	indicatorTitle.setPosition(sf::Vector2f(1075, 300));
 
 	sf::Texture indicatorTexture;
 	if (!indicatorTexture.loadFromFile("Asset/Image/None.png"))
@@ -445,7 +461,7 @@ int main()
 	sf::Sprite indicator;
 	indicator.setTexture(indicatorTexture);
 	indicator.setTextureRect(sf::IntRect(0, 0, 140, 140));
-	indicator.setPosition(sf::Vector2f(1020, 350));
+	indicator.setPosition(sf::Vector2f(1070, 380));
 
 	sf::Texture indicatorTexture2;
 	if (!indicatorTexture2.loadFromFile("Asset/Image/None.png"))
@@ -469,31 +485,31 @@ int main()
 	sf::Clock clockTimer;
 	sf::Text titleTimer;
 	titleTimer.setFont(scoreboardFont);
-	titleTimer.setCharacterSize(50);
-	titleTimer.setColor(sf::Color::Black);
+	titleTimer.setCharacterSize(30);
+	titleTimer.setColor(sf::Color::White);
 	titleTimer.setString("Time Left");
-	titleTimer.setPosition(sf::Vector2f(20, 140));
+	titleTimer.setPosition(sf::Vector2f(70, 155));
 
 	sf::Text showTimer;
 	showTimer.setFont(scoreboardFont);
-	showTimer.setCharacterSize(50);
-	showTimer.setColor(sf::Color::Black);
+	showTimer.setCharacterSize(80);
+	showTimer.setColor(sf::Color::White);
 	showTimer.setString("90");
-	showTimer.setPosition(sf::Vector2f(20, 190));
+	showTimer.setPosition(sf::Vector2f(75, 190));
 
 	sf::Text titleCoolDown;
 	titleCoolDown.setFont(scoreboardFont);
-	titleCoolDown.setCharacterSize(50);
-	titleCoolDown.setColor(sf::Color::Black);
-	titleCoolDown.setString("Cooldown Left");
-	titleCoolDown.setPosition(sf::Vector2f(20, 280));
+	titleCoolDown.setCharacterSize(30);
+	titleCoolDown.setColor(sf::Color::White);
+	titleCoolDown.setString("Cooldown");
+	titleCoolDown.setPosition(sf::Vector2f(70, 300));
 
 	sf::Text coolDownTimer;
 	coolDownTimer.setFont(scoreboardFont);
-	coolDownTimer.setCharacterSize(50);
-	coolDownTimer.setColor(sf::Color::Black);
+	coolDownTimer.setCharacterSize(80);
+	coolDownTimer.setColor(sf::Color::White);
 	coolDownTimer.setString("0");
-	coolDownTimer.setPosition(sf::Vector2f(20, 330));
+	coolDownTimer.setPosition(sf::Vector2f(110, 335));
 	// CooldownTimer System
 
 	sf::Clock clockCooldownTimer;
@@ -519,35 +535,35 @@ int main()
 	sf::Text HighScore1;
 	HighScore1.setFont(scoreboardFont);
 	HighScore1.setCharacterSize(100);
-	HighScore1.setColor(sf::Color::Black);
+	HighScore1.setColor(sf::Color::White);
 	HighScore1.setString("0");
 	HighScore1.setPosition(sf::Vector2f(370,160));
 
 	sf::Text HighScore2;
 	HighScore2.setFont(scoreboardFont);
 	HighScore2.setCharacterSize(100);
-	HighScore2.setColor(sf::Color::Black);
+	HighScore2.setColor(sf::Color::White);
 	HighScore2.setString("0");
 	HighScore2.setPosition(sf::Vector2f(370, 260));
 
 	sf::Text HighScore3;
 	HighScore3.setFont(scoreboardFont);
 	HighScore3.setCharacterSize(100);
-	HighScore3.setColor(sf::Color::Black);
+	HighScore3.setColor(sf::Color::White);
 	HighScore3.setString("0");
 	HighScore3.setPosition(sf::Vector2f(370, 360));
 
 	sf::Text HighScore4;
 	HighScore4.setFont(scoreboardFont);
 	HighScore4.setCharacterSize(100);
-	HighScore4.setColor(sf::Color::Black);
+	HighScore4.setColor(sf::Color::White);
 	HighScore4.setString("0");
 	HighScore4.setPosition(sf::Vector2f(370, 460));
 
 	sf::Text HighScore5;
 	HighScore5.setFont(scoreboardFont);
 	HighScore5.setCharacterSize(100);
-	HighScore5.setColor(sf::Color::Black);
+	HighScore5.setColor(sf::Color::White);
 	HighScore5.setString("0");
 	HighScore5.setPosition(sf::Vector2f(370, 560));
 
@@ -555,14 +571,14 @@ int main()
 	sf::Text EndPagePlayerName;
 	EndPagePlayerName.setFont(scoreboardFont);
 	EndPagePlayerName.setCharacterSize(200);
-	EndPagePlayerName.setColor(sf::Color::Black);
+	EndPagePlayerName.setColor(sf::Color::White);
 	EndPagePlayerName.setString("0");
 	EndPagePlayerName.setPosition(sf::Vector2f(370, 280));
 
 	sf::Text EndPageFinalScore;
 	EndPageFinalScore.setFont(scoreboardFont);
 	EndPageFinalScore.setCharacterSize(150);
-	EndPageFinalScore.setColor(sf::Color::Black);
+	EndPageFinalScore.setColor(sf::Color::White);
 	EndPageFinalScore.setString("0");
 	EndPageFinalScore.setPosition(sf::Vector2f(830, 520));
 
@@ -1304,7 +1320,7 @@ int main()
 			window.draw(foodNameTitle);
 			window.draw(foodName);
 			window.draw(indicator);
-			window.draw(indicator2);
+			//window.draw(indicator2);
 			window.draw(indicatorTitle);
 			window.display();
 			break;
