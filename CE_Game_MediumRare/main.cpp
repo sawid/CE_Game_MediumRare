@@ -461,7 +461,7 @@ int main()
 	sf::Sprite indicator;
 	indicator.setTexture(indicatorTexture);
 	indicator.setTextureRect(sf::IntRect(0, 0, 140, 140));
-	indicator.setPosition(sf::Vector2f(1070, 380));
+	indicator.setPosition(sf::Vector2f(1070, 370));
 
 	sf::Texture indicatorTexture2;
 	if (!indicatorTexture2.loadFromFile("Asset/Image/None.png"))
